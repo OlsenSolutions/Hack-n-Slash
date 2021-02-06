@@ -115,7 +115,7 @@ public class CharacterStats_SO : ScriptableObject
     public void saveCharacterData()
     {
         saveDataOnClose = true;
-        EditorUtility.SetDirty(this);
+        //EditorUtility.SetDirty(this);
     }
 
 
