@@ -1,0 +1,148 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4364c8c27c003fe46ad6e1bb210f6ca3, type: 3}
+  m_Name: PlayerStats
+  m_EditorClassIdentifier: 
+  setManually: 0
+  saveDataOnClose: 0
+  maxHealth: 100
+  currentHealth: 100
+  maxMana: 25
+  currentMana: 3
+  currentDamage: 10
+  currentMagicDamage: 10
+  maxEncumbrance: 100
+  currentEncumbrance: 0
+  charExperience: 0
+  charLevel: 1
+  charRenevalPoints: 1
+  charLevelUps:
+  - maxHealth: 200
+    maxMana: 50
+    currentDamage: 20
+    experienceNeeded: 500
+    charRenevalPoints: 2
+    currentMagicDamage: 15
+  - maxHealth: 300
+    maxMana: 100
+    currentDamage: 30
+    experienceNeeded: 1500
+    charRenevalPoints: 3
+    currentMagicDamage: 20
+  - maxHealth: 400
+    maxMana: 150
+    currentDamage: 40
+    experienceNeeded: 3000
+    charRenevalPoints: 4
+    currentMagicDamage: 25
+  - maxHealth: 500
+    maxMana: 200
+    currentDamage: 50
+    experienceNeeded: 5000
+    charRenevalPoints: 5
+    currentMagicDamage: 30
+  - maxHealth: 600
+    maxMana: 250
+    currentDamage: 60
+    experienceNeeded: 7000
+    charRenevalPoints: 6
+    currentMagicDamage: 35
+  - maxHealth: 700
+    maxMana: 300
+    currentDamage: 70
+    experienceNeeded: 9000
+    charRenevalPoints: 7
+    currentMagicDamage: 40
+  - maxHealth: 800
+    maxMana: 350
+    currentDamage: 80
+    experienceNeeded: 11000
+    charRenevalPoints: 8
+    currentMagicDamage: 45
+  - maxHealth: 900
+    maxMana: 400
+    currentDamage: 90
+    experienceNeeded: 13000
+    charRenevalPoints: 9
+    currentMagicDamage: 50
+  - maxHealth: 1000
+    maxMana: 450
+    currentDamage: 100
+    experienceNeeded: 14000
+    charRenevalPoints: 10
+    currentMagicDamage: 55
+  - maxHealth: 1100
+    maxMana: 500
+    currentDamage: 110
+    experienceNeeded: 15000
+    charRenevalPoints: 11
+    currentMagicDamage: 60
+  - maxHealth: 1200
+    maxMana: 550
+    currentDamage: 120
+    experienceNeeded: 17000
+    charRenevalPoints: 12
+    currentMagicDamage: 65
+  - maxHealth: 1300
+    maxMana: 600
+    currentDamage: 130
+    experienceNeeded: 19000
+    charRenevalPoints: 13
+    currentMagicDamage: 70
+  - maxHealth: 1400
+    maxMana: 650
+    currentDamage: 140
+    experienceNeeded: 21000
+    charRenevalPoints: 14
+    currentMagicDamage: 75
+  - maxHealth: 1500
+    maxMana: 700
+    currentDamage: 150
+    experienceNeeded: 23000
+    charRenevalPoints: 15
+    currentMagicDamage: 80
+  - maxHealth: 1600
+    maxMana: 750
+    currentDamage: 160
+    experienceNeeded: 25000
+    charRenevalPoints: 16
+    currentMagicDamage: 85
+  - maxHealth: 1700
+    maxMana: 800
+    currentDamage: 170
+    experienceNeeded: 27000
+    charRenevalPoints: 17
+    currentMagicDamage: 90
+  - maxHealth: 1800
+    maxMana: 850
+    currentDamage: 180
+    experienceNeeded: 29000
+    charRenevalPoints: 18
+    currentMagicDamage: 95
+  - maxHealth: 1900
+    maxMana: 900
+    currentDamage: 190
+    experienceNeeded: 31000
+    charRenevalPoints: 19
+    currentMagicDamage: 100
+  - maxHealth: 2000
+    maxMana: 950
+    currentDamage: 200
+    experienceNeeded: 33000
+    charRenevalPoints: 20
+    currentMagicDamage: 105
+  - maxHealth: 2000
+    maxMana: 1000
+    currentDamage: 250
+    experienceNeeded: 35000
+    charRenevalPoints: 21
+    currentMagicDamage: 110
