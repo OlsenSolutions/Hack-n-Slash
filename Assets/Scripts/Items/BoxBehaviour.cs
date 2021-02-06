@@ -19,11 +19,23 @@ public class BoxBehaviour : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         anim = GetComponent<Animator>();
     }
-
+    public void MagicHit(GameObject col)
+{
+        if (col.tag == "Magic")
+        {
+            InstantiatePotion();
+            anim.SetBool("DestroyBox", true);
+            ps.SetActive(true);
+            ps.GetComponent<ParticleSystem>().Play(true);
+            animBox.gameObject.SetActive(false);
+            DeactivateBox();
+        }
+    }
     private void OnCollisionEnter(Collision col)
     {
-        if (col.gameObject.tag == "Weapon" || col.gameObject.tag == "Magic")
+        if (col.gameObject.tag == "Weapon" )
         {
+            
             InstantiatePotion();
             anim.SetBool("DestroyBox", true);
             ps.SetActive(true);

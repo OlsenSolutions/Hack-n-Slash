@@ -17,6 +17,7 @@ TagManager:
   - Wall
   - Magic
   - GameManager
+  - Pointer
   layers:
   - Default
   - TransparentFX

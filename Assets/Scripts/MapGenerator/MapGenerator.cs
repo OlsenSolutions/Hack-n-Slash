@@ -718,7 +718,9 @@ public class MapGenerator : MonoBehaviour
                                     }
 
                                     playerPrefab.GetComponent<CharacterBehaviour>().fireballHolder = centerObstacles;
-
+                                    var pointer = GameObject.FindGameObjectWithTag("Pointer");
+                                    if (pointer !=null)
+                                        pointer.GetComponent<Pointer>().targetPosition = obstacle.transform.position;
                                 }
 
                             }

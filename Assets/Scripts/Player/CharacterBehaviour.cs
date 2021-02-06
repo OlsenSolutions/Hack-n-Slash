@@ -57,6 +57,7 @@ public class CharacterBehaviour : MonoBehaviour
                     GameObject fireball = Instantiate(fireBallPrefab, transform) as GameObject;
                     var target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                     var dir = hit.point - transform.position;
+                    dir = new Vector3 (dir.x, 0, dir.z);
                     fireball.GetComponent<Fireball>().Damage = characterDefinition.characterDefinition.currentMagicDamage;
                     Rigidbody rb = fireball.GetComponent<Rigidbody>();
                     rb.velocity = dir;
