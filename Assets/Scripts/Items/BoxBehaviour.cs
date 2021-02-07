@@ -12,16 +12,18 @@ public class BoxBehaviour : MonoBehaviour
     public GameObject ps;
     private GameObject player;
     private Animator anim;
-
     public ParticleSystem animBox;
+
+    private bool isDestroyed;
     void Start()
     {
+        isDestroyed = false;
         player = GameObject.FindGameObjectWithTag("Player");
         anim = GetComponent<Animator>();
     }
     public void MagicHit(GameObject col)
 {
-        if (col.tag == "Magic")
+        if (col.tag == "Magic"&& isDestroyed == false)
         {
             InstantiatePotion();
             anim.SetBool("DestroyBox", true);
@@ -29,11 +31,12 @@ public class BoxBehaviour : MonoBehaviour
             ps.GetComponent<ParticleSystem>().Play(true);
             animBox.gameObject.SetActive(false);
             DeactivateBox();
+            isDestroyed = true;
         }
     }
     private void OnCollisionEnter(Collision col)
     {
-        if (col.gameObject.tag == "Weapon" )
+        if (col.gameObject.tag == "Weapon" && isDestroyed == false)
         {
             
             InstantiatePotion();
@@ -42,6 +45,7 @@ public class BoxBehaviour : MonoBehaviour
             ps.GetComponent<ParticleSystem>().Play(true);
             animBox.gameObject.SetActive(false);
             DeactivateBox();
+            isDestroyed = true;
 
         }
     }

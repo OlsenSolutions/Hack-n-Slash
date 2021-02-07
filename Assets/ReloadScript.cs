@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ReloadScript : MonoBehaviour
 {
@@ -9,8 +10,9 @@ public class ReloadScript : MonoBehaviour
     {
         this.gameObject.SetActive(false);
     }
-    public void Reload()
+
+    public void LoadMainMenu()
     {
-        EventManager.TriggerEvent("NotRestart");
+        SceneManager.LoadScene("MainMenu");
     }
 }

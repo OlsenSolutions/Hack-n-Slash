@@ -22,6 +22,9 @@ public class CharacterBehaviour : MonoBehaviour
     public GameObject fireBallPrefab;
     public GameObject fireballHolder;
 
+    public GameObject EscapeMenu;
+    public AudioSource fireballSound;
+    public AudioSource[] HitSound;
     void Awake()
     {
 
@@ -57,15 +60,22 @@ public class CharacterBehaviour : MonoBehaviour
                     GameObject fireball = Instantiate(fireBallPrefab, transform) as GameObject;
                     var target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                     var dir = hit.point - transform.position;
-                    dir = new Vector3 (dir.x, 0, dir.z);
+                    dir = new Vector3(dir.x, 0, dir.z);
                     fireball.GetComponent<Fireball>().Damage = characterDefinition.characterDefinition.currentMagicDamage;
                     Rigidbody rb = fireball.GetComponent<Rigidbody>();
                     rb.velocity = dir;
                     fireball.transform.parent = fireballHolder.transform;
+                    fireballSound.Play();
                     characterDefinition.TakeMana(characterDefinition.characterDefinition.currentMagicDamage / 2);
                 }
             }
         }
+if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            EscapeMenu.SetActive(true);
+            Time.timeScale = 0f;
+        }
+
         if (Input.GetMouseButtonDown(0))
         {
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -86,6 +96,7 @@ public class CharacterBehaviour : MonoBehaviour
         {
             anim.SetBool("Dead", true);
             GetComponent<NavMeshAgent>().enabled = false;
+            EventManager.TriggerEvent(EventManager.PlayerDead);
 
         }
 
@@ -95,58 +106,61 @@ public class CharacterBehaviour : MonoBehaviour
 
     void Move(Ray ray, RaycastHit hit)
     {
-        if (hit.collider.gameObject.tag == "Enemy" || hit.collider.gameObject.tag == "EnemyWeapon")
+        if (characterDefinition.characterDefinition.currentHealth > 0)
         {
-            actualEnemy = hit.collider.gameObject;
-            anim.SetBool("isPlayerAttacking", true);
-            agent.speed = 7f;
-            isEnemy = true;
-
-            if (Physics.Raycast(ray.origin, ray.direction, out infoHit))
+            if (hit.collider.gameObject.tag == "Enemy" || hit.collider.gameObject.tag == "EnemyWeapon")
             {
-                agent.stoppingDistance = 2f;
-                agent.destination = infoHit.point;
-            }
+                actualEnemy = hit.collider.gameObject;
+                anim.SetBool("isPlayerAttacking", true);
+                agent.speed = 7f;
+                isEnemy = true;
 
-        }
-        else if (hit.collider.gameObject.tag == "BoxCollective")
-        {
-            actualEnemy = hit.collider.gameObject;
-            anim.SetBool("isPlayerAttacking", true);
-            agent.speed = 5f;
-            isEnemy = true;
-            agent.stoppingDistance = 1f;
-            if (Physics.Raycast(ray.origin, ray.direction, out infoHit))
-            {
-                agent.stoppingDistance = 2f;
-                agent.destination = infoHit.point;
-            }
-        }
-        else
-        {
-            anim.SetBool("isPlayerAttacking", false);
-            anim.SetBool("Attack", false);
-            agent.stoppingDistance = 0f;
-            isEnemy = false;
-            actualEnemy = null;
-
-            if (Time.time < InitialTouch + 0.5f)
-            {
-                agent.speed = 6f;
                 if (Physics.Raycast(ray.origin, ray.direction, out infoHit))
                 {
+                    agent.stoppingDistance = 2f;
+                    agent.destination = infoHit.point;
+                }
+
+            }
+            else if (hit.collider.gameObject.tag == "BoxCollective")
+            {
+                actualEnemy = hit.collider.gameObject;
+                anim.SetBool("isPlayerAttacking", true);
+                agent.speed = 5f;
+                isEnemy = true;
+                agent.stoppingDistance = 1f;
+                if (Physics.Raycast(ray.origin, ray.direction, out infoHit))
+                {
+                    agent.stoppingDistance = 2f;
                     agent.destination = infoHit.point;
                 }
             }
             else
             {
-                agent.speed = 3f;
-                if (Physics.Raycast(ray.origin, ray.direction, out infoHit))
+                anim.SetBool("isPlayerAttacking", false);
+                anim.SetBool("Attack", false);
+                agent.stoppingDistance = 0f;
+                isEnemy = false;
+                actualEnemy = null;
+
+                if (Time.time < InitialTouch + 0.5f)
                 {
-                    agent.destination = infoHit.point;
+                    agent.speed = 6f;
+                    if (Physics.Raycast(ray.origin, ray.direction, out infoHit))
+                    {
+                        agent.destination = infoHit.point;
+                    }
                 }
+                else
+                {
+                    agent.speed = 3f;
+                    if (Physics.Raycast(ray.origin, ray.direction, out infoHit))
+                    {
+                        agent.destination = infoHit.point;
+                    }
+                }
+                InitialTouch = Time.time;
             }
-            InitialTouch = Time.time;
         }
     }
 
@@ -167,6 +181,9 @@ public class CharacterBehaviour : MonoBehaviour
         {
             var EnemyStats = col.gameObject.GetComponent<EnemyBehaviourContainer>().enemy;
             characterDefinition.TakeDamage(EnemyStats.enemyDefinition.currentDamage);
+            var random = new System.Random();
+            int x = random.Next(0,1);
+            HitSound[x].Play();
         }
     }
 

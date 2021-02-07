@@ -46,6 +46,8 @@ public class MapGenerator : MonoBehaviour
     public GameObject platform;
 
     public GameObject ReloadMapUI;
+    public GameObject EscapeMenu;
+
 
     private CharacterStats_SO characterStatsGame;
 
@@ -59,10 +61,6 @@ public class MapGenerator : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            GenerateMap();
-        }
     }
 
     public void GenerateNextMap(GameObject playerInGame)
@@ -119,9 +117,11 @@ public class MapGenerator : MonoBehaviour
         GenerateNextMap(playerInstance);
     }
 
-    void GenerateMap()
+    public void GenerateMap()
     {
         ClearMap();
+        if (Time.timeScale == 0f)
+            Time.timeScale = 1f;
         map = new int[width, height];
         RandomFillMap();
 
@@ -158,7 +158,6 @@ public class MapGenerator : MonoBehaviour
         }
         else
         {
-            Debug.LogError("NIMO");
         }
     }
 
@@ -190,7 +189,7 @@ public class MapGenerator : MonoBehaviour
                 GameObject.Destroy(centerObstacles.transform.GetChild(i).gameObject);
             }
         }
-        
+
     }
 
     void ProcessMap()
@@ -711,7 +710,6 @@ public class MapGenerator : MonoBehaviour
                                     playerPrefab.GetComponent<CharacterStats>().charInv.hotBarDisplayHolders = hotBarDisplayHolders;
                                     playerPrefab.GetComponent<CharacterStats>().charInv.InventoryDisplayHolder = InventoryDisplayHolder;
                                     playerPrefab.GetComponent<CharacterStats>().charInv.ClearInventory();
-
                                     if (characterStatsGame != null)
                                     {
                                         playerPrefab.GetComponent<CharacterStats>().characterDefinition = characterStatsGame;
@@ -719,8 +717,9 @@ public class MapGenerator : MonoBehaviour
 
                                     playerPrefab.GetComponent<CharacterBehaviour>().fireballHolder = centerObstacles;
                                     var pointer = GameObject.FindGameObjectWithTag("Pointer");
-                                    if (pointer !=null)
+                                    if (pointer != null)
                                         pointer.GetComponent<Pointer>().targetPosition = obstacle.transform.position;
+                                    playerPrefab.GetComponent<CharacterBehaviour>().EscapeMenu = EscapeMenu;
                                 }
 
                             }
@@ -803,48 +802,47 @@ public class MapGenerator : MonoBehaviour
 
     private void InstantiateEnemies(List<mapPlace> waypoints)
     {
-        if(GameObject.FindGameObjectWithTag("Player")!=null)
+        if (GameObject.FindGameObjectWithTag("Player") != null)
         {
-        var waypointsEnemies = waypoints;
-        int waypointsEnemiesLenght = 0;
-        waypointsEnemiesLenght = waypoints.Count;
-        //       Debug.LogError(waypointsEnemiesLenght);
-        var transformsList = new List<Vector3>();
-            foreach(mapPlace way in waypoints)
+            var waypointsEnemies = waypoints;
+            int waypointsEnemiesLenght = 0;
+            waypointsEnemiesLenght = waypoints.Count;
+            //       Debug.LogError(waypointsEnemiesLenght);
+            var transformsList = new List<Vector3>();
+            foreach (mapPlace way in waypoints)
             {
-                var trans = new Vector3 (way.posX, -2f, way.posY);
+                var trans = new Vector3(way.posX, -2f, way.posY);
                 transformsList.Add(trans);
             }
-        var waypointsPatrol = transformsList.ToArray();
+            var waypointsPatrol = transformsList.ToArray();
 
 
-        foreach (mapPlace place in waypointsEnemies)
-        {
-            var skeletorI = Instantiate(skeletor, new Vector3(place.posX, 0, place.posY), skeletor.transform.rotation);
-            var skeletorStats = EnemyStats_SO.CreateInstance<EnemyStats_SO>();
-            skeletorStats.maxHealth = 100;
-            skeletorStats.currentHealth = 100;
-            skeletorStats.maxMana = 50;
-            skeletorStats.currentMana = 50;
-            skeletorStats.currentDamage = 2;
-            skeletorStats.normalSpeed = 3;
-            skeletorStats.experienceAdded = 100;
+            foreach (mapPlace place in waypointsEnemies)
+            {
+                var skeletorI = Instantiate(skeletor, new Vector3(place.posX, 0, place.posY), skeletor.transform.rotation);
+                var skeletorStats = EnemyStats_SO.CreateInstance<EnemyStats_SO>();
+                skeletorStats.maxHealth = 100;
+                skeletorStats.currentHealth = 100;
+                skeletorStats.maxMana = 50;
+                skeletorStats.currentMana = 50;
+                skeletorStats.currentDamage = 2;
+                skeletorStats.normalSpeed = 3;
+                skeletorStats.experienceAdded = 100;
 
-            skeletorI.GetComponent<EnemyBehaviour>().enemyDefinition = skeletorStats;
-            skeletorI.GetComponent<EnemyStats>().enemyDefinition = skeletorStats;
-            skeletorI.transform.parent = EnemyList.transform;
-            skeletorI.GetComponent<EnemyAI>().patrolTargets = waypointsPatrol;
+                skeletorI.GetComponent<EnemyBehaviour>().enemyDefinition = skeletorStats;
+                skeletorI.GetComponent<EnemyStats>().enemyDefinition = skeletorStats;
+                skeletorI.transform.parent = EnemyList.transform;
+                skeletorI.GetComponent<EnemyAI>().patrolTargets = waypointsPatrol;
 
-        }
+            }
 
-        healthManaScript.MonsterCounter.text = waypointsEnemiesLenght.ToString();
-        EventManager.TriggerEvent(EventManager.MapCreated);
+            healthManaScript.MonsterCounter.text = waypointsEnemiesLenght.ToString();
+            EventManager.TriggerEvent(EventManager.MapCreated);
         }
         else
         {
-            Debug.LogError("NIMO");
             GenerateNewMap();
-    }
+        }
     }
 
 

@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 3813520990003096479}
   m_Layer: 0
   m_Name: Walls
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -236,7 +236,7 @@ MonoBehaviour:
   m_Center: {x: 0, y: 2, z: 0}
   m_LayerMask:
     serializedVersion: 2
-    m_Bits: 5943
+    m_Bits: 24375
   m_UseGeometry: 0
   m_DefaultArea: 0
   m_IgnoreNavMeshAgent: 1
@@ -246,7 +246,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_BuildHeightMesh: 0
-  m_NavMeshData: {fileID: 23800000, guid: 51b271e1f6450de49a6fb716b3b504b6, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 0cc8c2b4a2a9e7941970df9604d8c569, type: 2}
 --- !u!1 &3813520990258066423
 GameObject:
   m_ObjectHideFlags: 0
@@ -343,6 +343,8 @@ MonoBehaviour:
   randomObstaclesFillPercent: 15
   platform: {fileID: 8341242771292535758, guid: b7a8590a0136e3440ab2b48a2c8fb96e,
     type: 3}
+  ReloadMapUI: {fileID: 0}
+  EscapeMenu: {fileID: 0}
 --- !u!114 &3813520990258066420
 MonoBehaviour:
   m_ObjectHideFlags: 0

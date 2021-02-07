@@ -7,6 +7,7 @@ public class EventManager : MonoBehaviour
 {
     public const string ChestOpened = "ChestOpened";
     public const string EnemyDead = "EnemyDead";
+    public const string PlayerDead = "PlayerDead";
     public const string AllEnemiesDead = "AllEnemiesDead";
     public const string MapCreated = "MapCreated";
     public const string MagicUsed = "MagicUsed";

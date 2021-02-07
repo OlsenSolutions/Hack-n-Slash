@@ -9,15 +9,12 @@ public class PlayOrExitGame : MonoBehaviour
     public void Play()
     {
         SceneManager.LoadScene("MapGeneration");
-        Debug.LogError("Play");
-
     }
 
     // Update is called once per frame
     public void Exit()
     {
         Application.Quit();
-                Debug.LogError("Exit");
 
     }
 }

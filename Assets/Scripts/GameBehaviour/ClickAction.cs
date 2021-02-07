@@ -37,6 +37,12 @@ public class ClickAction : MonoBehaviour
         }
     }
 
+        public void Exit()
+    {
+        Application.Quit();
+
+    }
+
     void CursorBehaviour()
     {
         RaycastHit hit;

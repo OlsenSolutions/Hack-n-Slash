@@ -21,6 +21,9 @@ public class EnemyBehaviour : MonoBehaviour
 
     public BoxCollider weaponCollider;
     public ParticleSystem DeathParticle;
+    public AudioSource[] SwordSounds;
+
+    public AudioSource Death;
 
     private bool x;
     void Awake()
@@ -72,6 +75,7 @@ public class EnemyBehaviour : MonoBehaviour
         setCollidersState(true);
         enemyStats.HealthBar.SetActive(false);
         enemyStats.ManaBar.SetActive(false);
+        Death.Play();
         this.gameObject.tag = "Untagged";
         StartCoroutine(DeadDelayStatic());
         SetLayerRecursively(this.gameObject, 10);
@@ -100,6 +104,10 @@ public class EnemyBehaviour : MonoBehaviour
         if (col.gameObject.tag == "Weapon")
         {
             enemyStats.TakeDamage(charStats.characterDefinition.currentDamage);
+            var random = new System.Random();
+            int x = random.Next(0,SwordSounds.Length-1);
+            SwordSounds[x].Play();
+
         }
     }
 
