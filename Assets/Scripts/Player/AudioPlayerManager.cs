@@ -5,7 +5,7 @@ using UnityEngine;
 public class AudioPlayerManager: MonoBehaviour
 {
       private static AudioPlayerManager instance = null;
-      private AudioSource audio;
+      private AudioSource audioS;
 
       private void Awake()
       {
@@ -21,7 +21,7 @@ public class AudioPlayerManager: MonoBehaviour
 
       void Start()
       {
-         audio = GetComponent<AudioSource>();
-         audio.Play();
+         audioS = GetComponent<AudioSource>();
+         audioS.Play();
       }
 }

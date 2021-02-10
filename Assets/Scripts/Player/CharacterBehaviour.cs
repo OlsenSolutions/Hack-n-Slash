@@ -70,10 +70,13 @@ public class CharacterBehaviour : MonoBehaviour
                 }
             }
         }
-if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            EscapeMenu.SetActive(true);
-            Time.timeScale = 0f;
+            if (Time.timeScale == 1f)
+           {
+                EscapeMenu.SetActive(true);
+                Time.timeScale = 0f;
+            }
         }
 
         if (Input.GetMouseButtonDown(0))
@@ -182,7 +185,7 @@ if (Input.GetKeyDown(KeyCode.Escape))
             var EnemyStats = col.gameObject.GetComponent<EnemyBehaviourContainer>().enemy;
             characterDefinition.TakeDamage(EnemyStats.enemyDefinition.currentDamage);
             var random = new System.Random();
-            int x = random.Next(0,1);
+            int x = random.Next(0, 1);
             HitSound[x].Play();
         }
     }

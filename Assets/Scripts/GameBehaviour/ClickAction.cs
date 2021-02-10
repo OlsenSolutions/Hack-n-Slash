@@ -4,8 +4,6 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(NavMeshAgent))]
-
 public class ClickAction : MonoBehaviour
 {
 
@@ -18,8 +16,11 @@ public class ClickAction : MonoBehaviour
 
     void Start()
     {
-
+        if (Time.timeScale == 0f)
+            Time.timeScale = 1f;
     }
+
+
     void Update()
     {
         CursorBehaviour();
@@ -37,7 +38,7 @@ public class ClickAction : MonoBehaviour
         }
     }
 
-        public void Exit()
+    public void Exit()
     {
         Application.Quit();
 

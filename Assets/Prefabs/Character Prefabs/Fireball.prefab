@@ -80,6 +80,7 @@ MonoBehaviour:
   mainParticle: {fileID: 3605638795974834605}
   WallHit: {fileID: 3377045218998060945}
   EnemyHit: {fileID: 5675593870101417566}
+  Light: {fileID: 5476403757815290428}
   Damage: 0
 --- !u!1001 &3178750773164330759
 PrefabInstance:
@@ -231,6 +232,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 10800000, guid: 1c20c7996d683754db1f0f62a361952c, type: 3}
+      propertyPath: m_BoundingSphereOverride.w
+      value: 1e-45
+      objectReference: {fileID: 0}
+    - target: {fileID: 10800000, guid: 1c20c7996d683754db1f0f62a361952c, type: 3}
+      propertyPath: m_BoundingSphereOverride.x
+      value: 3e-45
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11400000, guid: 1c20c7996d683754db1f0f62a361952c, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 1c20c7996d683754db1f0f62a361952c, type: 3}
@@ -313,6 +322,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 108108600115150234, guid: 46876a2780737ec45a19d62f88e5ce56,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.x
+      value: 1.18e-43
+      objectReference: {fileID: 0}
+    - target: {fileID: 108108600115150234, guid: 46876a2780737ec45a19d62f88e5ce56,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.y
+      value: 1e-45
+      objectReference: {fileID: 0}
+    - target: {fileID: 108108600115150234, guid: 46876a2780737ec45a19d62f88e5ce56,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.z
+      value: 1.19e-43
+      objectReference: {fileID: 0}
     - target: {fileID: 198194127032045410, guid: 46876a2780737ec45a19d62f88e5ce56,
         type: 3}
       propertyPath: playOnAwake
@@ -351,6 +375,12 @@ Transform:
 --- !u!198 &5675593870101417566 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 198194127032045410, guid: 46876a2780737ec45a19d62f88e5ce56,
+    type: 3}
+  m_PrefabInstance: {fileID: 5477470129331093820}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5476403757815290428 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1119560965430016, guid: 46876a2780737ec45a19d62f88e5ce56,
     type: 3}
   m_PrefabInstance: {fileID: 5477470129331093820}
   m_PrefabAsset: {fileID: 0}

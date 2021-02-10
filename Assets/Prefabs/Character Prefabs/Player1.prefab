@@ -3534,6 +3534,7 @@ MonoBehaviour:
   fireBallPrefab: {fileID: 66348980442283292, guid: f22c696283891604db3cdd296cab7ce2,
     type: 3}
   fireballHolder: {fileID: 0}
+  EscapeMenu: {fileID: 0}
   fireballSound: {fileID: 751379573901066336}
   HitSound:
   - {fileID: 3877362409641971673}

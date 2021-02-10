@@ -1,6 +1,7 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Platform : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class Platform : MonoBehaviour
     private bool AllEnemiesDead;
     public GameObject ReloadMapUI;
     private bool CanRestartGame;
+
+    
     void Start()
 
     {
@@ -35,26 +38,39 @@ public class Platform : MonoBehaviour
 
     void OnTriggerEnter(Collider trigger)
     {
+        var sceneName = SceneManager.GetActiveScene();
         if (AllEnemiesDead && trigger.gameObject.tag == "Player")
         {
-            var MapGeneratorScript = GameObject.FindGameObjectWithTag("MapGenerator").GetComponent<MapGenerator>();
-            if (MapGeneratorScript != null)
+            if (sceneName.name == "Training")
             {
-                MapGeneratorScript.GenerateNextMap(trigger.gameObject);
+                SceneManager.LoadScene("MapGeneration");
+                SceneManager.UnloadSceneAsync("Training");
+            }
+            else if (sceneName.name == "MapGeneration")
+            {
+                var MapGeneratorScript = GameObject.FindGameObjectWithTag("MapGenerator").GetComponent<MapGenerator>();
+                if (MapGeneratorScript != null)
+                {
+                    MapGeneratorScript.GenerateNextMap(trigger.gameObject);
+                }
             }
         }
         else if (CanRestartGame && trigger.gameObject.tag == "Player")
         {
-            ReloadMapUI.SetActive(true);
-            CanRestartGame = false;
-            restartGameParticle.Stop();
-            var gamemanager = GameObject.FindGameObjectWithTag("GameManager");
-            if (gamemanager!=null)
-                gamemanager.GetComponent<ClickAction>().PauseGame(true);
+            if (sceneName.name == "MapGeneration")
+            {
+                if (ReloadMapUI != null)
+                    ReloadMapUI.SetActive(true);
+                CanRestartGame = false;
+                restartGameParticle.Stop();
+                var gamemanager = GameObject.FindGameObjectWithTag("GameManager");
+                if (gamemanager != null)
+                    gamemanager.GetComponent<ClickAction>().PauseGame(true);
+            }
         }
     }
 
-    void AllEnemiesAreDead()
+    public void AllEnemiesAreDead()
     {
         AllEnemiesDead = true;
         restartGameParticle.Stop();

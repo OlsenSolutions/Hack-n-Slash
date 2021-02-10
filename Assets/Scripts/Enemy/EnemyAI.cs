@@ -15,6 +15,7 @@ public class EnemyAI : MonoBehaviour
     GameObject player;
     Animator anim;
     EnemyStats enemyStats;
+    public bool MagicHit;
 
     void Start()
     {
@@ -22,6 +23,7 @@ public class EnemyAI : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
         enemyStats = GetComponent<EnemyStats>();
+        MagicHit = false;
     }
 
     void Update()
@@ -29,20 +31,37 @@ public class EnemyAI : MonoBehaviour
         if (player != null)
         {
             float distance = Vector3.Distance(this.gameObject.transform.position, player.gameObject.transform.position);
-            if (distance < 2f)
-            {
-                Follow(true, distance);
-            }
-            else if (distance >= 2f && distance < 5f)
-            {
-                Follow(false, distance);
-            }
-            else if (distance >= 5f)
-            {
-                anim.SetFloat("playerFar", distance);
-                anim.SetFloat("Speed", agent.velocity.magnitude);
 
+            if (!MagicHit)
+            {
+                if (distance < 2f)
+                {
+                    Follow(true, distance);
+                }
+                else if (distance >= 2f && distance < 5f)
+                {
+                    Follow(false, distance);
+                }
+                else if (distance >= 5f)
+                {
+                    anim.SetFloat("playerFar", distance);
+                    anim.SetFloat("Speed", agent.velocity.magnitude);
+
+                }
             }
+            else
+            {
+                if (distance < 2f)
+                {
+                    Follow(true, distance);
+                }
+                else if (distance >= 2f)
+                {
+                    anim.SetFloat("playerFar", distance);
+                    Follow(false, distance);
+                }
+            }
+
         }
         else
             player = GameObject.FindGameObjectWithTag("Player");
@@ -90,8 +109,8 @@ public class EnemyAI : MonoBehaviour
         arrived = false;
         int x = random.Next(0, patrolTargets.Length - 1);
         destPoint = x;
-        if(agent.isActiveAndEnabled!=false)
-        agent.destination = patrolTargets[destPoint];
+        if (agent.isActiveAndEnabled != false)
+            agent.destination = patrolTargets[destPoint];
         anim.SetFloat("Speed", enemyStats.enemyDefinition.normalSpeed);
 
         destPoint = (destPoint + 1) % patrolTargets.Length;

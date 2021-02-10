@@ -7,6 +7,7 @@ public class Fireball : MonoBehaviour
     public ParticleSystem mainParticle;
     public ParticleSystem WallHit;
     public ParticleSystem EnemyHit;
+    public GameObject Light;
     public int Damage;
 
     void OnTriggerEnter(Collider col)
@@ -17,9 +18,11 @@ public class Fireball : MonoBehaviour
             {
                 Rigidbody rb = GetComponent<Rigidbody>();
                 rb.velocity = Vector3.zero;
+                if(col.gameObject.GetComponent<EnemyStats>() != null)
                 col.gameObject.GetComponent<EnemyStats>().TakeDamage(Damage);
                 mainParticle.Stop();
                 EnemyHit.Play();
+                col.gameObject.GetComponent<EnemyAI>().MagicHit = true;
                 GetComponent<SphereCollider>().enabled = false;
                 StartCoroutine(WaitToDestroy());
 
@@ -44,7 +47,8 @@ public class Fireball : MonoBehaviour
 
     IEnumerator WaitToDestroy()
     {
-        yield return new WaitForSeconds(1);
+        Light.gameObject.SetActive(false);
+        yield return new WaitForSeconds(2f);
         Destroy(this.gameObject);
     }
 }
