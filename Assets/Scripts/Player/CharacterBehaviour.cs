@@ -16,12 +16,9 @@ public class CharacterBehaviour : MonoBehaviour
     public bool isEnemy;
     Animator anim;
     private GameObject actualEnemy;
-
     public LayerMask clickableLayer;
-
     public GameObject fireBallPrefab;
     public GameObject fireballHolder;
-
     public GameObject EscapeMenu;
     public AudioSource fireballSound;
     public AudioSource[] HitSound;

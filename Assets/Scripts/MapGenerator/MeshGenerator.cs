@@ -14,18 +14,17 @@ public class MeshGenerator : MonoBehaviour
     public MeshFilter cave;
     public List<Material> wallMaterials;
     public List<Material> floorMaterials;
+    public List<Vector3>[] wallsPositions = new List<Vector3>[2];
     List<Vector3> meshVertices;
     List<int> meshTriangles;
     List<Vector3> floorVertices;
     List<int> floorTriangles;
-    public List<Vector3>[] wallsPositions = new List<Vector3>[2];
     List<Vector2> normals = new List<Vector2>();
     Dictionary<int, List<Triangle>> triangleDictionary = new Dictionary<int, List<Triangle>>();
     Dictionary<int, List<Triangle>> triangleFloorDictionary = new Dictionary<int, List<Triangle>>();
     List<List<int>> outlines = new List<List<int>>();
     HashSet<int> checkedVertices = new HashSet<int>();
     HashSet<int> checkedFloorVertices = new HashSet<int>();
-
 
     public void GenerateMesh(int[,] map, float squareSize)
     {

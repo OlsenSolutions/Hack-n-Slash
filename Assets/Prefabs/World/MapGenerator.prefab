@@ -294,19 +294,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 250eeb85e120f5041a920aa04484e33f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthManaScript: {fileID: 0}
   width: 100
   height: 100
-  torchlight: {fileID: 8583780524957933453, guid: 5fbfbee0f9885764383291c4c5e18668,
-    type: 3}
-  WallAddOnsLow:
+  wallAddOnsLow:
   - {fileID: 1981527524187172614, guid: d151a7a834fbdb74c91a7c667f237f66, type: 3}
-  - {fileID: 2422862916687909700, guid: 15ddaa590faad0345bb862f16f938a85, type: 3}
-  - {fileID: 4840933984946710607, guid: 601cfa35bc1930448932c1bc4fd3f851, type: 3}
-  - {fileID: 5970401421281161096, guid: ab1258b92a915f34cad498e468157ea2, type: 3}
-  - {fileID: 7744133988298027690, guid: 2842f39ac5e5f614dbddf8b6c0df87ad, type: 3}
-  - {fileID: 5327446762987047554, guid: 15c85a52a2a3678468344e2171c975b6, type: 3}
+  - {fileID: 8178109065456489191, guid: 5062c1312f2beb14694d90a058d444e4, type: 3}
   - {fileID: 2172983332991183597, guid: a18b785adb73aa6418ddb2553efbe07d, type: 3}
-  WallAddOnsTop:
+  - {fileID: 7744133988298027690, guid: 2842f39ac5e5f614dbddf8b6c0df87ad, type: 3}
+  - {fileID: 5970401421281161096, guid: ab1258b92a915f34cad498e468157ea2, type: 3}
+  - {fileID: 4840933984946710607, guid: 601cfa35bc1930448932c1bc4fd3f851, type: 3}
+  - {fileID: 2422862916687909700, guid: 15ddaa590faad0345bb862f16f938a85, type: 3}
+  wallAddOnsTop:
   - {fileID: 7030994941266997987, guid: 725d9061657be724facf6fda9fe05b4f, type: 3}
   centerAddOnsBig:
   - {fileID: 1460935832571979484, guid: ff3b882235ccfcb44b4373373d31e8c1, type: 3}
@@ -324,27 +323,28 @@ MonoBehaviour:
   - {fileID: 1378172779303584491, guid: fd2de4bd876f4ac4980370e624362931, type: 3}
   - {fileID: 2508803079818082220, guid: 616fdaa7dbff40e4f91c695be15f9f4f, type: 3}
   - {fileID: 1000014038691284, guid: efebddd0b5766bd499be8b63f581de68, type: 3}
+  torchlight: {fileID: 8583780524957933453, guid: 5fbfbee0f9885764383291c4c5e18668,
+    type: 3}
   player: {fileID: 4536971497529200814, guid: c90e388a769b1ad47bb10e65dc80f2f3, type: 3}
-  WallsObstacles: {fileID: 4339314194694748322}
+  wallsObstacles: {fileID: 4339314194694748322}
   centerObstacles: {fileID: 2096522670572319083}
-  EnemyList: {fileID: 0}
+  enemyList: {fileID: 0}
   skeletor: {fileID: 3588445633511127295, guid: a821ea32cdb9e0e4e9438e1957fc8248,
     type: 3}
-  healthManaScript: {fileID: 0}
+  reloadMapUI: {fileID: 0}
+  escapeMenu: {fileID: 0}
+  platform: {fileID: 8341242771292535758, guid: b7a8590a0136e3440ab2b48a2c8fb96e,
+    type: 3}
+  inventoryDisplayHolder: {fileID: 0}
   hotBarDisplayHolders:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  InventoryDisplayHolder: {fileID: 0}
   seed: 
   useRandomSeed: 1
   randomFillPercent: 46
   randomObstaclesFillPercent: 15
-  platform: {fileID: 8341242771292535758, guid: b7a8590a0136e3440ab2b48a2c8fb96e,
-    type: 3}
-  ReloadMapUI: {fileID: 0}
-  EscapeMenu: {fileID: 0}
 --- !u!114 &3813520990258066420
 MonoBehaviour:
   m_ObjectHideFlags: 0

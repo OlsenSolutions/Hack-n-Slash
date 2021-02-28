@@ -6,27 +6,25 @@ using UnityEngine.UI;
 
 public class MapGenerator : MonoBehaviour
 {
-
+    public HealthManaScript healthManaScript;
     public int width;
     public int height;
-    public GameObject torchlight;
-    public List<GameObject> WallAddOnsLow;
-    public List<GameObject> WallAddOnsTop;
-
+    public List<mapPlace> normals = new List<mapPlace>();
+    public List<GameObject> wallAddOnsLow;
+    public List<GameObject> wallAddOnsTop;
     public List<GameObject> centerAddOnsBig;
     public List<GameObject> centerAddOnsSmall;
+    public GameObject torchlight;
     public GameObject player;
-    public GameObject WallsObstacles;
+    public GameObject wallsObstacles;
     public GameObject centerObstacles;
-    public GameObject EnemyList;
+    public GameObject enemyList;
     public GameObject skeletor;
-    public List<mapPlace> normals = new List<mapPlace>();
-
-    public HealthManaScript healthManaScript;
-
+    public GameObject reloadMapUI;
+    public GameObject escapeMenu;
+    public GameObject platform;
+    public GameObject inventoryDisplayHolder;
     public Image[] hotBarDisplayHolders = new Image[4];
-    public GameObject InventoryDisplayHolder;
-
     public string seed;
     public bool useRandomSeed;
 
@@ -35,21 +33,12 @@ public class MapGenerator : MonoBehaviour
 
     [Range(0, 100)]
     public int randomObstaclesFillPercent;
-    List<Room> survRooms = new List<Room>();
     int[,] map;
-
-    private bool platformCreated;
-    private bool playerCreated;
-
-    private mapPlace platformPlace;
-
-    public GameObject platform;
-
-    public GameObject ReloadMapUI;
-    public GameObject EscapeMenu;
-
-
-    private CharacterStats_SO characterStatsGame;
+    List<Room> survRooms = new List<Room>();
+    bool platformCreated;
+    bool playerCreated;
+    mapPlace platformPlace;
+    CharacterStats_SO characterStatsGame;
 
     void Start()
     {
@@ -85,12 +74,12 @@ public class MapGenerator : MonoBehaviour
             PlayerStatsNew.charRenevalPoints = PlayerStatsOld.charRenevalPoints;
             characterStatsGame = PlayerStatsNew;
         }
-        if (EnemyList.transform.childCount != 0)
+        if (enemyList.transform.childCount != 0)
         {
-            int childs = EnemyList.transform.childCount;
+            int childs = enemyList.transform.childCount;
             for (int i = childs - 1; i >= 0; i--)
             {
-                GameObject.Destroy(EnemyList.transform.GetChild(i).gameObject);
+                GameObject.Destroy(enemyList.transform.GetChild(i).gameObject);
             }
         }
 
@@ -100,12 +89,12 @@ public class MapGenerator : MonoBehaviour
 
     public void GenerateNewMap()
     {
-        if (EnemyList.transform.childCount != 0)
+        if (enemyList.transform.childCount != 0)
         {
-            int childs = EnemyList.transform.childCount;
+            int childs = enemyList.transform.childCount;
             for (int i = childs - 1; i >= 0; i--)
             {
-                GameObject.Destroy(EnemyList.transform.GetChild(i).gameObject);
+                GameObject.Destroy(enemyList.transform.GetChild(i).gameObject);
             }
         }
         GenerateMap();
@@ -172,12 +161,12 @@ public class MapGenerator : MonoBehaviour
     {
         platformCreated = false;
         playerCreated = false;
-        if (WallsObstacles.transform.childCount != 0)
+        if (wallsObstacles.transform.childCount != 0)
         {
-            int childs = WallsObstacles.transform.childCount;
+            int childs = wallsObstacles.transform.childCount;
             for (int i = childs - 1; i >= 0; i--)
             {
-                GameObject.Destroy(WallsObstacles.transform.GetChild(i).gameObject);
+                GameObject.Destroy(wallsObstacles.transform.GetChild(i).gameObject);
             }
         }
 
@@ -516,14 +505,14 @@ public class MapGenerator : MonoBehaviour
             index++;
             if (index == 14)
             {
-                var wallObstacle = Instantiate(WallAddOnsTop[0], center[x], torchlight.transform.rotation);
-                wallObstacle.transform.parent = WallsObstacles.transform;
+                var wallObstacle = Instantiate(wallAddOnsTop[0], center[x], torchlight.transform.rotation);
+                wallObstacle.transform.parent = wallsObstacles.transform;
                 wallObstacle.transform.LookAt((center[x] + normal[x]));
             }
             else if (index == 30)
             {
                 var torch = Instantiate(torchlight, center[x], torchlight.transform.rotation);
-                torch.transform.parent = WallsObstacles.transform;
+                torch.transform.parent = wallsObstacles.transform;
                 torch.transform.LookAt((center[x] + normal[x]));
                 index = 0;
             }
@@ -550,18 +539,18 @@ public class MapGenerator : MonoBehaviour
 
                 if (center[x].y == -2)
                 {
-                    int indexer = random.Next(0, WallAddOnsLow.Count);
-                    var obstacle = Instantiate(WallAddOnsLow[indexer], center[x] + (normal[x] / 5), WallAddOnsLow[indexer].transform.rotation);
-                    obstacle.transform.parent = WallsObstacles.transform;
+                    int indexer = random.Next(0, wallAddOnsLow.Count);
+                    var obstacle = Instantiate(wallAddOnsLow[indexer], center[x] + (normal[x] / 5), wallAddOnsLow[indexer].transform.rotation);
+                    obstacle.transform.parent = wallsObstacles.transform;
 
                     obstacle.transform.LookAt((center[x] + normal[x]));
                     index = 0;
                 }
                 else
                 {
-                    int indexer = random.Next(0, WallAddOnsLow.Count);
-                    var obstacle = Instantiate(WallAddOnsLow[indexer], center[x - 1] + (normal[x - 1] / 5), WallAddOnsLow[indexer].transform.rotation);
-                    obstacle.transform.parent = WallsObstacles.transform;
+                    int indexer = random.Next(0, wallAddOnsLow.Count);
+                    var obstacle = Instantiate(wallAddOnsLow[indexer], center[x - 1] + (normal[x - 1] / 5), wallAddOnsLow[indexer].transform.rotation);
+                    obstacle.transform.parent = wallsObstacles.transform;
 
                     obstacle.transform.LookAt((center[x - 1] + normal[x - 1]));
                     index = 0;
@@ -702,13 +691,13 @@ public class MapGenerator : MonoBehaviour
                                 {
                                     map[mPlace.posX, mPlace.posY] = 2;
                                     var obstacle = Instantiate(platform, new Vector3(mPlace.posX - width / 2, -2.85f, mPlace.posY - height / 2), platform.transform.rotation);
-                                    obstacle.GetComponent<Platform>().ReloadMapUI = ReloadMapUI;
+                                    obstacle.GetComponent<Platform>().ReloadMapUI = reloadMapUI;
                                     obstacle.transform.parent = centerObstacles.transform;
                                     platformCreated = true;
                                     platformPlace = mPlace;
                                     var playerPrefab = Instantiate(player, new Vector3(mPlace.posX - width / 2, -2.85f, mPlace.posY - height / 2), player.transform.rotation);
                                     playerPrefab.GetComponent<CharacterStats>().charInv.hotBarDisplayHolders = hotBarDisplayHolders;
-                                    playerPrefab.GetComponent<CharacterStats>().charInv.InventoryDisplayHolder = InventoryDisplayHolder;
+                                    playerPrefab.GetComponent<CharacterStats>().charInv.InventoryDisplayHolder = inventoryDisplayHolder;
                                     playerPrefab.GetComponent<CharacterStats>().charInv.ClearInventory();
                                     if (characterStatsGame != null)
                                     {
@@ -719,7 +708,7 @@ public class MapGenerator : MonoBehaviour
                                     var pointer = GameObject.FindGameObjectWithTag("Pointer");
                                     if (pointer != null)
                                         pointer.GetComponent<Pointer>().targetPosition = obstacle.transform.position;
-                                    playerPrefab.GetComponent<CharacterBehaviour>().EscapeMenu = EscapeMenu;
+                                    playerPrefab.GetComponent<CharacterBehaviour>().EscapeMenu = escapeMenu;
                                 }
 
                             }
@@ -831,7 +820,7 @@ public class MapGenerator : MonoBehaviour
 
                 skeletorI.GetComponent<EnemyBehaviour>().enemyDefinition = skeletorStats;
                 skeletorI.GetComponent<EnemyStats>().enemyDefinition = skeletorStats;
-                skeletorI.transform.parent = EnemyList.transform;
+                skeletorI.transform.parent = enemyList.transform;
                 skeletorI.GetComponent<EnemyAI>().patrolTargets = waypointsPatrol;
 
             }

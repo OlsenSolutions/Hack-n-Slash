@@ -93,7 +93,7 @@ public class EnemyAI : MonoBehaviour
             StartCoroutine("GoToNextPoint");
         }
 
-
+        bool variable = true;
 
     }
 

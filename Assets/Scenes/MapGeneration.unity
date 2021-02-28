@@ -322,12 +322,6 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 860960602269156475, guid: 2f5c94689c5a2354db2cde43e439e814, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 2f5c94689c5a2354db2cde43e439e814, type: 3}
---- !u!1 &290662913 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 509404316655808437, guid: 9b46c5690ee090c4eb277e47c20ccc51,
-    type: 3}
-  m_PrefabInstance: {fileID: 1438820556}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &768845032
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -915,17 +909,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3813520990258066422, guid: b105ce0e943290c488a06b908ae08e9a,
         type: 3}
-      propertyPath: EnemyList
+      propertyPath: enemyList
       value: 
       objectReference: {fileID: 1290301315}
     - target: {fileID: 3813520990258066422, guid: b105ce0e943290c488a06b908ae08e9a,
         type: 3}
-      propertyPath: EscapeMenu
+      propertyPath: escapeMenu
       value: 
       objectReference: {fileID: 185051236}
     - target: {fileID: 3813520990258066422, guid: b105ce0e943290c488a06b908ae08e9a,
         type: 3}
-      propertyPath: ReloadMapUI
+      propertyPath: reloadMapUI
       value: 
       objectReference: {fileID: 1937991475}
     - target: {fileID: 3813520990258066422, guid: b105ce0e943290c488a06b908ae08e9a,
@@ -933,11 +927,6 @@ PrefabInstance:
       propertyPath: healthManaScript
       value: 
       objectReference: {fileID: 1921445356}
-    - target: {fileID: 3813520990258066422, guid: b105ce0e943290c488a06b908ae08e9a,
-        type: 3}
-      propertyPath: InventoryDisplayHolder
-      value: 
-      objectReference: {fileID: 290662913}
     - target: {fileID: 3813520990258066422, guid: b105ce0e943290c488a06b908ae08e9a,
         type: 3}
       propertyPath: hotBarDisplayHolders.Array.data[0]
