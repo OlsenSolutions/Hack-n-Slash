@@ -4,14 +4,16 @@ using System.Collections.Generic;
 using UnityEngine.AI;
 using UnityEngine.Events;
 using System;
+using System.Linq;
 
 public class MeshGenerator : MonoBehaviour
 {
 
     public SquareGrid squareGrid;
     public MeshFilter walls;
-    public MeshFilter floor;
     public MeshFilter cave;
+    public MeshFilter floor;
+    public MeshFilter ceilingMesh;
     public List<Material> wallMaterials;
     public List<Material> floorMaterials;
     public List<Vector3>[] wallsPositions = new List<Vector3>[2];
@@ -26,7 +28,15 @@ public class MeshGenerator : MonoBehaviour
     HashSet<int> checkedVertices = new HashSet<int>();
     HashSet<int> checkedFloorVertices = new HashSet<int>();
 
-    public void GenerateMesh(int[,] map, float squareSize)
+    public void Generate(int[,] map, float squareSize)
+    {
+        GenerateMesh(map, squareSize, cave);
+        var floorMap = InverseMapArray(map);
+        GenerateMesh(floorMap, squareSize, floor);
+        CreateWallMesh(map, squareSize);
+    }
+
+    public void GenerateMesh(int[,] map, float squareSize, MeshFilter targetMesh)
     {
 
         triangleDictionary.Clear();
@@ -47,7 +57,7 @@ public class MeshGenerator : MonoBehaviour
         }
 
         Mesh mesh = new Mesh();
-        cave.mesh = mesh;
+
 
         mesh.vertices = meshVertices.ToArray();
         mesh.triangles = meshTriangles.ToArray();
@@ -64,7 +74,22 @@ public class MeshGenerator : MonoBehaviour
         mesh.uv = uvs;
         mesh.RecalculateNormals();
         mesh.RecalculateBounds();
-        CreateWallMesh(map, squareSize);
+        targetMesh.mesh = mesh;
+        if (targetMesh == cave)
+        {
+            ceilingMesh.mesh = mesh;
+            ceilingMesh.gameObject.transform.position = new Vector3 (0,2.9f,0);
+            Material mat = new Material(Shader.Find("Standard"));
+            mat.color = Color.black;
+            ceilingMesh.gameObject.GetComponent<MeshRenderer>().material = mat;
+
+        }
+        else if (targetMesh == floor)
+        {
+            GetComponent<ObjectSpawner>().floor = floor;
+            floor.GetComponent<MeshCollider>().sharedMesh = mesh;
+
+        }
     }
 
     void CreateWallMesh(int[,] map, float squareSize)
@@ -75,7 +100,7 @@ public class MeshGenerator : MonoBehaviour
         List<Vector3> wallVertices = new List<Vector3>();
         List<int> wallTriangles = new List<int>();
         Mesh wallMesh = new Mesh();
-        float wallHeight = 3;
+        float wallHeight = -3;
 
         foreach (List<int> outline in outlines)
         {
@@ -99,10 +124,10 @@ public class MeshGenerator : MonoBehaviour
             }
         }
 
-
-
         wallMesh.vertices = wallVertices.ToArray();
         wallMesh.triangles = wallTriangles.ToArray();
+        //   wallMesh.triangles = wallMesh.triangles.Reverse().ToArray();
+        //  wallMesh.vertices = wallMesh.vertices.Reverse().ToArray();
 
         int tileAmount = 10;
         Vector2[] uvs = new Vector2[wallVertices.Count];
@@ -113,6 +138,7 @@ public class MeshGenerator : MonoBehaviour
             uvs[i] = new Vector2(percentX, percentY);
         }
         wallMesh.uv = uvs;
+        wallMesh.uv.Reverse().ToArray();
 
 
         Vector3[] vertices = wallMesh.vertices;
@@ -145,11 +171,14 @@ public class MeshGenerator : MonoBehaviour
         if (walls.gameObject.GetComponent<MeshCollider>() != null)
         {
             walls.GetComponent<MeshCollider>().sharedMesh = wallMesh;
+            GetComponent<ObjectSpawner>().walls = walls;
+
         }
         else
         {
             walls.gameObject.AddComponent<MeshCollider>();
             walls.GetComponent<MeshCollider>().sharedMesh = wallMesh;
+            GetComponent<ObjectSpawner>().walls = walls;
         }
 
         SetMaterials();
@@ -167,7 +196,6 @@ public class MeshGenerator : MonoBehaviour
     public void BakingNavMesh()
     {
         floor.GetComponent<NavMeshSurface>().BuildNavMesh();
-
     }
 
     void TriangulateSquare(Square square, List<int> triangleAd, List<Vector3> verticeAd, HashSet<int> checkedHash, Dictionary<int, List<Triangle>> triangleDict)
@@ -475,6 +503,26 @@ public class MeshGenerator : MonoBehaviour
         {
             position = _pos;
         }
+    }
+
+    int[,] InverseMapArray(int[,] map)
+    {
+        for (int x = 0; x < map.GetLength(0); x++)
+        {
+            for (int y = 0; y < map.GetLength(1); y++)
+            {
+                if (map[x, y] == 0)
+                {
+                    map[x, y] = 1;
+                }
+                else if (map[x, y] == 1)
+                {
+                    map[x, y] = 0;
+                }
+            }
+        }
+
+        return map;
     }
 
     public class ControlNode : Node

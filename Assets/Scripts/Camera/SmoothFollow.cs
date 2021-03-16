@@ -45,12 +45,12 @@ namespace UnityStandardAssets.Utility
 
         void OnEnable()
         {
-            EventManager.StartListening(EventManager.MapCreated, FindPlayer);
+            EventManager.StartListening(EventManager.PlayerInstantiated, FindPlayer);
         }
 
         void OnDisable()
         {
-            EventManager.StopListening(EventManager.MapCreated, FindPlayer);
+            EventManager.StopListening(EventManager.PlayerInstantiated, FindPlayer);
 
         }
     }

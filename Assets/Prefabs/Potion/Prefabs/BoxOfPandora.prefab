@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 23000010184599378}
   m_Layer: 13
   m_Name: Object016
-  m_TagString: Untagged
+  m_TagString: BoxCollective
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 23000012918252792}
   m_Layer: 13
   m_Name: Object014
-  m_TagString: Untagged
+  m_TagString: BoxCollective
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -171,7 +171,7 @@ GameObject:
   - component: {fileID: 23000012848440176}
   m_Layer: 13
   m_Name: Object003
-  m_TagString: Untagged
+  m_TagString: BoxCollective
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -250,7 +250,7 @@ GameObject:
   - component: {fileID: 23000013747609510}
   m_Layer: 13
   m_Name: Object015
-  m_TagString: Untagged
+  m_TagString: BoxCollective
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -329,7 +329,7 @@ GameObject:
   - component: {fileID: 23000013516114954}
   m_Layer: 13
   m_Name: Object
-  m_TagString: Untagged
+  m_TagString: BoxCollective
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -406,7 +406,7 @@ GameObject:
   - component: {fileID: 4000010583859816}
   m_Layer: 13
   m_Name: Destroy_box
-  m_TagString: Untagged
+  m_TagString: BoxCollective
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -457,7 +457,7 @@ GameObject:
   - component: {fileID: 23000012644991564}
   m_Layer: 13
   m_Name: Object004
-  m_TagString: Untagged
+  m_TagString: BoxCollective
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -536,7 +536,7 @@ GameObject:
   - component: {fileID: 23000011035977048}
   m_Layer: 13
   m_Name: Object017
-  m_TagString: Untagged
+  m_TagString: BoxCollective
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -615,7 +615,7 @@ GameObject:
   - component: {fileID: 23000010861272518}
   m_Layer: 13
   m_Name: Object005
-  m_TagString: Untagged
+  m_TagString: BoxCollective
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -694,7 +694,7 @@ GameObject:
   - component: {fileID: 23000014185208820}
   m_Layer: 13
   m_Name: Object013
-  m_TagString: Untagged
+  m_TagString: BoxCollective
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -773,7 +773,7 @@ GameObject:
   - component: {fileID: 23000010011737380}
   m_Layer: 13
   m_Name: Object018
-  m_TagString: Untagged
+  m_TagString: BoxCollective
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -852,7 +852,7 @@ GameObject:
   - component: {fileID: 23000012356797934}
   m_Layer: 13
   m_Name: Object012
-  m_TagString: Untagged
+  m_TagString: BoxCollective
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -931,7 +931,7 @@ GameObject:
   - component: {fileID: 23000013346354790}
   m_Layer: 13
   m_Name: Object010
-  m_TagString: Untagged
+  m_TagString: BoxCollective
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1010,7 +1010,7 @@ GameObject:
   - component: {fileID: 23000011057740090}
   m_Layer: 13
   m_Name: Object009
-  m_TagString: Untagged
+  m_TagString: BoxCollective
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1089,7 +1089,7 @@ GameObject:
   - component: {fileID: 23000010294522994}
   m_Layer: 13
   m_Name: Object007
-  m_TagString: Untagged
+  m_TagString: BoxCollective
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1168,7 +1168,7 @@ GameObject:
   - component: {fileID: 23000010454575934}
   m_Layer: 13
   m_Name: Object001
-  m_TagString: Untagged
+  m_TagString: BoxCollective
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1247,7 +1247,7 @@ GameObject:
   - component: {fileID: 23000012164023138}
   m_Layer: 13
   m_Name: Object002
-  m_TagString: Untagged
+  m_TagString: BoxCollective
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1326,7 +1326,7 @@ GameObject:
   - component: {fileID: 23000011755218114}
   m_Layer: 13
   m_Name: Object011
-  m_TagString: Untagged
+  m_TagString: BoxCollective
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1405,7 +1405,7 @@ GameObject:
   - component: {fileID: 23000010925734176}
   m_Layer: 13
   m_Name: Object008
-  m_TagString: Untagged
+  m_TagString: BoxCollective
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1590,7 +1590,7 @@ GameObject:
   - component: {fileID: 23000011448965100}
   m_Layer: 13
   m_Name: Object006
-  m_TagString: Untagged
+  m_TagString: BoxCollective
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1669,7 +1669,7 @@ GameObject:
   - component: {fileID: 23000013517712602}
   m_Layer: 13
   m_Name: Box001
-  m_TagString: Untagged
+  m_TagString: BoxCollective
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1746,21 +1746,41 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 13
       objectReference: {fileID: 0}
+    - target: {fileID: 1085412806299596, guid: 46876a2780737ec45a19d62f88e5ce56, type: 3}
+      propertyPath: m_TagString
+      value: BoxCollective
+      objectReference: {fileID: 0}
     - target: {fileID: 1119560965430016, guid: 46876a2780737ec45a19d62f88e5ce56, type: 3}
       propertyPath: m_Layer
       value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 1119560965430016, guid: 46876a2780737ec45a19d62f88e5ce56, type: 3}
+      propertyPath: m_TagString
+      value: BoxCollective
       objectReference: {fileID: 0}
     - target: {fileID: 1289377929907018, guid: 46876a2780737ec45a19d62f88e5ce56, type: 3}
       propertyPath: m_Layer
       value: 13
       objectReference: {fileID: 0}
+    - target: {fileID: 1289377929907018, guid: 46876a2780737ec45a19d62f88e5ce56, type: 3}
+      propertyPath: m_TagString
+      value: BoxCollective
+      objectReference: {fileID: 0}
     - target: {fileID: 1720670327315042, guid: 46876a2780737ec45a19d62f88e5ce56, type: 3}
       propertyPath: m_Layer
       value: 13
       objectReference: {fileID: 0}
+    - target: {fileID: 1720670327315042, guid: 46876a2780737ec45a19d62f88e5ce56, type: 3}
+      propertyPath: m_TagString
+      value: BoxCollective
+      objectReference: {fileID: 0}
     - target: {fileID: 1838308332998216, guid: 46876a2780737ec45a19d62f88e5ce56, type: 3}
       propertyPath: m_Layer
       value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 1838308332998216, guid: 46876a2780737ec45a19d62f88e5ce56, type: 3}
+      propertyPath: m_TagString
+      value: BoxCollective
       objectReference: {fileID: 0}
     - target: {fileID: 1892078723244562, guid: 46876a2780737ec45a19d62f88e5ce56, type: 3}
       propertyPath: m_Name
@@ -1773,6 +1793,10 @@ PrefabInstance:
     - target: {fileID: 1892078723244562, guid: 46876a2780737ec45a19d62f88e5ce56, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1892078723244562, guid: 46876a2780737ec45a19d62f88e5ce56, type: 3}
+      propertyPath: m_TagString
+      value: BoxCollective
       objectReference: {fileID: 0}
     - target: {fileID: 4977646799359860, guid: 46876a2780737ec45a19d62f88e5ce56, type: 3}
       propertyPath: m_RootOrder
@@ -1861,9 +1885,33 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4000010043812026}
     m_Modifications:
+    - target: {fileID: 1136814704922706, guid: b0bc1b6b391734647b9bb142bafc0819, type: 3}
+      propertyPath: m_TagString
+      value: BoxCollective
+      objectReference: {fileID: 0}
+    - target: {fileID: 1271459053672518, guid: b0bc1b6b391734647b9bb142bafc0819, type: 3}
+      propertyPath: m_TagString
+      value: BoxCollective
+      objectReference: {fileID: 0}
+    - target: {fileID: 1288247888185432, guid: b0bc1b6b391734647b9bb142bafc0819, type: 3}
+      propertyPath: m_TagString
+      value: BoxCollective
+      objectReference: {fileID: 0}
     - target: {fileID: 1727626132299242, guid: b0bc1b6b391734647b9bb142bafc0819, type: 3}
       propertyPath: m_Name
       value: CFX3_Fire_Shield
+      objectReference: {fileID: 0}
+    - target: {fileID: 1727626132299242, guid: b0bc1b6b391734647b9bb142bafc0819, type: 3}
+      propertyPath: m_TagString
+      value: BoxCollective
+      objectReference: {fileID: 0}
+    - target: {fileID: 1930125201661818, guid: b0bc1b6b391734647b9bb142bafc0819, type: 3}
+      propertyPath: m_TagString
+      value: BoxCollective
+      objectReference: {fileID: 0}
+    - target: {fileID: 1961129281457384, guid: b0bc1b6b391734647b9bb142bafc0819, type: 3}
+      propertyPath: m_TagString
+      value: BoxCollective
       objectReference: {fileID: 0}
     - target: {fileID: 4159976647224570, guid: b0bc1b6b391734647b9bb142bafc0819, type: 3}
       propertyPath: m_RootOrder
@@ -1908,6 +1956,36 @@ PrefabInstance:
     - target: {fileID: 4159976647224570, guid: b0bc1b6b391734647b9bb142bafc0819, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 199097852012473962, guid: b0bc1b6b391734647b9bb142bafc0819,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 199353247355800174, guid: b0bc1b6b391734647b9bb142bafc0819,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 199382588869566494, guid: b0bc1b6b391734647b9bb142bafc0819,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 199470981252049980, guid: b0bc1b6b391734647b9bb142bafc0819,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 199931754690253268, guid: b0bc1b6b391734647b9bb142bafc0819,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 199979416329716090, guid: b0bc1b6b391734647b9bb142bafc0819,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b0bc1b6b391734647b9bb142bafc0819, type: 3}

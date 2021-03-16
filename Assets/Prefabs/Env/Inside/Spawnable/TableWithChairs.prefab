@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8137677289869998242}
   m_Layer: 0
   m_Name: TableWithChairs
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -33,6 +33,54 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!208 &4708345462571434788
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1340759711196880214}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.24200001, y: 0.44000003, z: 0.22100002}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.0050000004, y: 0.44000003, z: -0.0050000004}
+  m_TimeToStationary: 0.5
+--- !u!208 &4864252427102096696
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6531071337737200021}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.24200001, y: 0.44000003, z: 0.22100002}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.0050000004, y: 0.44000003, z: -0.0050000004}
+  m_TimeToStationary: 0.5
+--- !u!208 &6906377004280858314
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8105747436282056882}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.0120001, y: 0.446, z: 0.62100005}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0.446, z: 0.014}
+  m_TimeToStationary: 0.5
 --- !u!1001 &681852378813962807
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -44,6 +92,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Jug_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 6698533136370866307, guid: 44b00c7db33473946ad48053b41e081f,
+        type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 7321029070664364311, guid: 44b00c7db33473946ad48053b41e081f,
         type: 3}
@@ -114,6 +167,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Chair_05
       objectReference: {fileID: 0}
+    - target: {fileID: 907737577407192764, guid: 3c94a574020d3de429d0c295b3a83db4,
+        type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     - target: {fileID: 6062957040624609817, guid: 3c94a574020d3de429d0c295b3a83db4,
         type: 3}
       propertyPath: m_RootOrder
@@ -171,6 +229,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3c94a574020d3de429d0c295b3a83db4, type: 3}
+--- !u!1 &1340759711196880214 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 907737577407192764, guid: 3c94a574020d3de429d0c295b3a83db4,
+    type: 3}
+  m_PrefabInstance: {fileID: 2162778262255338474}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5341348395229948403 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6062957040624609817, guid: 3c94a574020d3de429d0c295b3a83db4,
@@ -244,8 +308,19 @@ PrefabInstance:
       propertyPath: m_Name
       value: Table_01
       objectReference: {fileID: 0}
+    - target: {fileID: 8014036971784306386, guid: c65426a375c90574a95eaaf4840e9481,
+        type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c65426a375c90574a95eaaf4840e9481, type: 3}
+--- !u!1 &8105747436282056882 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8014036971784306386, guid: c65426a375c90574a95eaaf4840e9481,
+    type: 3}
+  m_PrefabInstance: {fileID: 2254881137219137120}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1778553706726755322 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 568653527279986074, guid: c65426a375c90574a95eaaf4840e9481,
@@ -263,6 +338,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Candle_01 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6630375654688184054, guid: c79d59d66358e0f45a098f4b8a82f8be,
+        type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 6670234744341657123, guid: c79d59d66358e0f45a098f4b8a82f8be,
         type: 3}
@@ -333,6 +413,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Chair_05 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 907737577407192764, guid: 3c94a574020d3de429d0c295b3a83db4,
+        type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     - target: {fileID: 6062957040624609817, guid: 3c94a574020d3de429d0c295b3a83db4,
         type: 3}
       propertyPath: m_RootOrder
@@ -390,6 +475,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3c94a574020d3de429d0c295b3a83db4, type: 3}
+--- !u!1 &6531071337737200021 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 907737577407192764, guid: 3c94a574020d3de429d0c295b3a83db4,
+    type: 3}
+  m_PrefabInstance: {fileID: 6213815486324326185}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &150900330380170544 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6062957040624609817, guid: 3c94a574020d3de429d0c295b3a83db4,
@@ -407,6 +498,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Bottle_05
+      objectReference: {fileID: 0}
+    - target: {fileID: 374151818356740834, guid: 0c837400ef1130c4196d20ee30637d9c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 8204406447206829204, guid: 0c837400ef1130c4196d20ee30637d9c,
         type: 3}
@@ -477,6 +573,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bottle_05 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 374151818356740834, guid: 0c837400ef1130c4196d20ee30637d9c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     - target: {fileID: 8204406447206829204, guid: 0c837400ef1130c4196d20ee30637d9c,
         type: 3}
       propertyPath: m_RootOrder
@@ -546,6 +647,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Candle_01
       objectReference: {fileID: 0}
+    - target: {fileID: 6630375654688184054, guid: c79d59d66358e0f45a098f4b8a82f8be,
+        type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     - target: {fileID: 6670234744341657123, guid: c79d59d66358e0f45a098f4b8a82f8be,
         type: 3}
       propertyPath: m_RootOrder
@@ -614,6 +720,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Bottle_05 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 374151818356740834, guid: 0c837400ef1130c4196d20ee30637d9c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 8204406447206829204, guid: 0c837400ef1130c4196d20ee30637d9c,
         type: 3}

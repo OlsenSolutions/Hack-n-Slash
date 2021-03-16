@@ -24,7 +24,7 @@ public class CharacterStats : MonoBehaviour
     void Start()
     {
 
-
+        
         if (!characterDefinition.setManually)
         {
             characterDefinition.maxHealth = 100;

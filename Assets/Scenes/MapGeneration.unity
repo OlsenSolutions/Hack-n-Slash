@@ -322,6 +322,36 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 860960602269156475, guid: 2f5c94689c5a2354db2cde43e439e814, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 2f5c94689c5a2354db2cde43e439e814, type: 3}
+--- !u!1 &584524059
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 584524060}
+  m_Layer: 0
+  m_Name: EnemyWaypoints
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &584524060
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 584524059}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &768845032
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -457,6 +487,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1182787454 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8292401944727078744, guid: 9b46c5690ee090c4eb277e47c20ccc51,
+    type: 3}
+  m_PrefabInstance: {fileID: 1438820556}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1290301315
 GameObject:
   m_ObjectHideFlags: 0
@@ -467,7 +509,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1290301316}
   m_Layer: 0
-  m_Name: Enemies
+  m_Name: EnemiesHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -481,7 +523,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1290301315}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.9742728, y: 2.559981, z: -7.6140614}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -675,18 +717,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce7f50e6d0d70504f8123130385dad9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1921445356 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2163034097247261140, guid: 9b46c5690ee090c4eb277e47c20ccc51,
-    type: 3}
-  m_PrefabInstance: {fileID: 1438820556}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36fcf01c7f5d2fc48b216600075276d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1937991475 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9171383695782357428, guid: 9b46c5690ee090c4eb277e47c20ccc51,
@@ -852,6 +882,38 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1474124961, guid: b105ce0e943290c488a06b908ae08e9a, type: 3}
+      propertyPath: ReloadMapUI
+      value: 
+      objectReference: {fileID: 1937991475}
+    - target: {fileID: 1474124961, guid: b105ce0e943290c488a06b908ae08e9a, type: 3}
+      propertyPath: enemyHolder
+      value: 
+      objectReference: {fileID: 1290301315}
+    - target: {fileID: 1474124961, guid: b105ce0e943290c488a06b908ae08e9a, type: 3}
+      propertyPath: monsterCounter
+      value: 
+      objectReference: {fileID: 1182787454}
+    - target: {fileID: 1474124961, guid: b105ce0e943290c488a06b908ae08e9a, type: 3}
+      propertyPath: enemyWaypointsHolder
+      value: 
+      objectReference: {fileID: 584524059}
+    - target: {fileID: 2095759822, guid: b105ce0e943290c488a06b908ae08e9a, type: 3}
+      propertyPath: hotBarDisplayHolders.Array.data[0]
+      value: 
+      objectReference: {fileID: 1879817060}
+    - target: {fileID: 2095759822, guid: b105ce0e943290c488a06b908ae08e9a, type: 3}
+      propertyPath: hotBarDisplayHolders.Array.data[1]
+      value: 
+      objectReference: {fileID: 158841558}
+    - target: {fileID: 2095759822, guid: b105ce0e943290c488a06b908ae08e9a, type: 3}
+      propertyPath: hotBarDisplayHolders.Array.data[2]
+      value: 
+      objectReference: {fileID: 1451710743}
+    - target: {fileID: 2095759822, guid: b105ce0e943290c488a06b908ae08e9a, type: 3}
+      propertyPath: hotBarDisplayHolders.Array.data[3]
+      value: 
+      objectReference: {fileID: 1959580039}
     - target: {fileID: 3813520990258066421, guid: b105ce0e943290c488a06b908ae08e9a,
         type: 3}
       propertyPath: m_RootOrder
@@ -909,44 +971,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3813520990258066422, guid: b105ce0e943290c488a06b908ae08e9a,
         type: 3}
-      propertyPath: enemyList
-      value: 
-      objectReference: {fileID: 1290301315}
-    - target: {fileID: 3813520990258066422, guid: b105ce0e943290c488a06b908ae08e9a,
-        type: 3}
       propertyPath: escapeMenu
       value: 
       objectReference: {fileID: 185051236}
     - target: {fileID: 3813520990258066422, guid: b105ce0e943290c488a06b908ae08e9a,
         type: 3}
-      propertyPath: reloadMapUI
+      propertyPath: enemyHolder
       value: 
-      objectReference: {fileID: 1937991475}
-    - target: {fileID: 3813520990258066422, guid: b105ce0e943290c488a06b908ae08e9a,
-        type: 3}
-      propertyPath: healthManaScript
-      value: 
-      objectReference: {fileID: 1921445356}
-    - target: {fileID: 3813520990258066422, guid: b105ce0e943290c488a06b908ae08e9a,
-        type: 3}
-      propertyPath: hotBarDisplayHolders.Array.data[0]
-      value: 
-      objectReference: {fileID: 1879817060}
-    - target: {fileID: 3813520990258066422, guid: b105ce0e943290c488a06b908ae08e9a,
-        type: 3}
-      propertyPath: hotBarDisplayHolders.Array.data[1]
-      value: 
-      objectReference: {fileID: 158841558}
-    - target: {fileID: 3813520990258066422, guid: b105ce0e943290c488a06b908ae08e9a,
-        type: 3}
-      propertyPath: hotBarDisplayHolders.Array.data[2]
-      value: 
-      objectReference: {fileID: 1451710743}
-    - target: {fileID: 3813520990258066422, guid: b105ce0e943290c488a06b908ae08e9a,
-        type: 3}
-      propertyPath: hotBarDisplayHolders.Array.data[3]
-      value: 
-      objectReference: {fileID: 1959580039}
+      objectReference: {fileID: 1290301315}
     - target: {fileID: 3813520990258066423, guid: b105ce0e943290c488a06b908ae08e9a,
         type: 3}
       propertyPath: m_Name

@@ -6,25 +6,16 @@ using UnityEngine.UI;
 
 public class MapGenerator : MonoBehaviour
 {
-    public HealthManaScript healthManaScript;
     public int width;
     public int height;
     public List<mapPlace> normals = new List<mapPlace>();
     public List<GameObject> wallAddOnsLow;
     public List<GameObject> wallAddOnsTop;
-    public List<GameObject> centerAddOnsBig;
-    public List<GameObject> centerAddOnsSmall;
     public GameObject torchlight;
-    public GameObject player;
-    public GameObject wallsObstacles;
-    public GameObject centerObstacles;
-    public GameObject enemyList;
-    public GameObject skeletor;
-    public GameObject reloadMapUI;
+    public GameObject wallsHolder;
+    public GameObject centerHolder;
+    public GameObject enemyHolder;
     public GameObject escapeMenu;
-    public GameObject platform;
-    public GameObject inventoryDisplayHolder;
-    public Image[] hotBarDisplayHolders = new Image[4];
     public string seed;
     public bool useRandomSeed;
 
@@ -35,77 +26,14 @@ public class MapGenerator : MonoBehaviour
     public int randomObstaclesFillPercent;
     int[,] map;
     List<Room> survRooms = new List<Room>();
-    bool platformCreated;
-    bool playerCreated;
     mapPlace platformPlace;
     CharacterStats_SO characterStatsGame;
 
     void Start()
     {
-        platformCreated = false;
-        playerCreated = false;
         GenerateMap();
         characterStatsGame = null;
     }
-
-    void Update()
-    {
-    }
-
-    public void GenerateNextMap(GameObject playerInGame)
-    {
-        var PlayerStatsNew = CharacterStats_SO.CreateInstance<CharacterStats_SO>();
-        var PlayerStatsOld = playerInGame.GetComponent<CharacterStats>().characterDefinition;
-        if (PlayerStatsNew != null)
-        {
-            PlayerStatsNew.setManually = true;
-            PlayerStatsNew.saveDataOnClose = false;
-            PlayerStatsNew.maxHealth = PlayerStatsOld.maxHealth;
-            PlayerStatsNew.currentHealth = PlayerStatsOld.currentHealth;
-            PlayerStatsNew.maxMana = PlayerStatsOld.maxMana;
-            PlayerStatsNew.currentMana = PlayerStatsOld.currentMana;
-            PlayerStatsNew.currentDamage = PlayerStatsOld.currentDamage;
-            PlayerStatsNew.maxEncumbrance = PlayerStatsOld.maxEncumbrance;
-            PlayerStatsNew.currentEncumbrance = PlayerStatsOld.currentEncumbrance;
-            PlayerStatsNew.charExperience = PlayerStatsOld.charExperience;
-            PlayerStatsNew.charLevel = PlayerStatsOld.charLevel;
-            PlayerStatsNew.charLevelUps = PlayerStatsOld.charLevelUps;
-            PlayerStatsNew.currentMagicDamage = PlayerStatsOld.currentMagicDamage;
-            PlayerStatsNew.charRenevalPoints = PlayerStatsOld.charRenevalPoints;
-            characterStatsGame = PlayerStatsNew;
-        }
-        if (enemyList.transform.childCount != 0)
-        {
-            int childs = enemyList.transform.childCount;
-            for (int i = childs - 1; i >= 0; i--)
-            {
-                GameObject.Destroy(enemyList.transform.GetChild(i).gameObject);
-            }
-        }
-
-        Destroy(playerInGame);
-        GenerateMap();
-    }
-
-    public void GenerateNewMap()
-    {
-        if (enemyList.transform.childCount != 0)
-        {
-            int childs = enemyList.transform.childCount;
-            for (int i = childs - 1; i >= 0; i--)
-            {
-                GameObject.Destroy(enemyList.transform.GetChild(i).gameObject);
-            }
-        }
-        GenerateMap();
-    }
-
-    public void RestartMap()
-    {
-        var playerInstance = GameObject.FindGameObjectWithTag("Player");
-        GenerateNextMap(playerInstance);
-    }
-
     public void GenerateMap()
     {
         ClearMap();
@@ -140,42 +68,66 @@ public class MapGenerator : MonoBehaviour
         }
 
         MeshGenerator meshGen = GetComponent<MeshGenerator>();
-        meshGen.GenerateMesh(borderedMap, 1);
+        meshGen.Generate(borderedMap, 1);
         if (meshGen.wallsPositions != null)
         {
             FillMap(meshGen.wallsPositions);
         }
-        else
-        {
-        }
     }
+
+    public void GenerateNextMap(GameObject playerInGame)
+    {
+        var PlayerStatsOld = playerInGame.GetComponent<CharacterStats>().characterDefinition;
+        if (PlayerStatsOld != null)
+        {
+             GetComponent<PlayerSpawner>().characterStatsDuringGame = PlayerStatsOld;
+        }
+        Destroy(playerInGame);
+        GenerateMap();
+    }
+
+    public void RestartMap()
+    {
+        var playerInstance = GameObject.FindGameObjectWithTag("Player");
+        GenerateNextMap(playerInstance);
+    }
+
+
 
     void FillMap(List<Vector3>[] wallsPosition)
     {
         WallPlacer(wallsPosition[0], wallsPosition[1]);
-        InsidePlacer();
+        if (GetComponent<ObjectSpawner>().floor != null && GetComponent<ObjectSpawner>().walls != null)
+            GetComponent<ObjectSpawner>().SpawnObjects();
         GetComponent<MeshGenerator>().BakingNavMesh();
     }
 
     void ClearMap()
     {
-        platformCreated = false;
-        playerCreated = false;
-        if (wallsObstacles.transform.childCount != 0)
+        if (wallsHolder.transform.childCount != 0)
         {
-            int childs = wallsObstacles.transform.childCount;
+            int childs = wallsHolder.transform.childCount;
             for (int i = childs - 1; i >= 0; i--)
             {
-                GameObject.Destroy(wallsObstacles.transform.GetChild(i).gameObject);
+                GameObject.Destroy(wallsHolder.transform.GetChild(i).gameObject);
             }
         }
 
-        if (centerObstacles.transform.childCount != 0)
+        if (centerHolder.transform.childCount != 0)
         {
-            int childs = centerObstacles.transform.childCount;
+            int childs = centerHolder.transform.childCount;
             for (int i = childs - 1; i >= 0; i--)
             {
-                GameObject.Destroy(centerObstacles.transform.GetChild(i).gameObject);
+                GameObject.Destroy(centerHolder.transform.GetChild(i).gameObject);
+            }
+        }
+
+         if (enemyHolder.transform.childCount != 0)
+        {
+            int childs = enemyHolder.transform.childCount;
+            for (int i = childs - 1; i >= 0; i--)
+            {
+                GameObject.Destroy(enemyHolder.transform.GetChild(i).gameObject);
             }
         }
 
@@ -503,16 +455,11 @@ public class MapGenerator : MonoBehaviour
         for (int x = 0; x < center.Count; x++)
         {
             index++;
-            if (index == 14)
+            if (index == 30)
             {
-                var wallObstacle = Instantiate(wallAddOnsTop[0], center[x], torchlight.transform.rotation);
-                wallObstacle.transform.parent = wallsObstacles.transform;
-                wallObstacle.transform.LookAt((center[x] + normal[x]));
-            }
-            else if (index == 30)
-            {
-                var torch = Instantiate(torchlight, center[x], torchlight.transform.rotation);
-                torch.transform.parent = wallsObstacles.transform;
+                var position = new Vector3(center[x].x, 2f, center[x].z);
+                var torch = Instantiate(torchlight, position, torchlight.transform.rotation);
+                torch.transform.parent = wallsHolder.transform;
                 torch.transform.LookAt((center[x] + normal[x]));
                 index = 0;
             }
@@ -536,305 +483,17 @@ public class MapGenerator : MonoBehaviour
             index++;
             if (index == 10)
             {
-
-                if (center[x].y == -2)
-                {
-                    int indexer = random.Next(0, wallAddOnsLow.Count);
-                    var obstacle = Instantiate(wallAddOnsLow[indexer], center[x] + (normal[x] / 5), wallAddOnsLow[indexer].transform.rotation);
-                    obstacle.transform.parent = wallsObstacles.transform;
-
-                    obstacle.transform.LookAt((center[x] + normal[x]));
-                    index = 0;
-                }
-                else
-                {
-                    int indexer = random.Next(0, wallAddOnsLow.Count);
-                    var obstacle = Instantiate(wallAddOnsLow[indexer], center[x - 1] + (normal[x - 1] / 5), wallAddOnsLow[indexer].transform.rotation);
-                    obstacle.transform.parent = wallsObstacles.transform;
-
-                    obstacle.transform.LookAt((center[x - 1] + normal[x - 1]));
-                    index = 0;
-                }
-
+                int indexer = random.Next(0, wallAddOnsLow.Count);
+                var obstacle = Instantiate(wallAddOnsLow[indexer], center[x] + (normal[x] / 5), wallAddOnsLow[indexer].transform.rotation);
+                obstacle.transform.parent = wallsHolder.transform;
+                obstacle.transform.LookAt((center[x] + normal[x]));
+                var position = new Vector3(obstacle.transform.position.x, 0f, obstacle.transform.position.z);
+                obstacle.transform.position = position;
+                index = 0;
             }
         }
 
     }
-
-    void InsidePlacer()
-    {
-        var random = new System.Random();
-        int big = 0;
-        int small = 0;
-
-        List<mapPlace> mapList = new List<mapPlace>();
-        List<mapPlace> mapListSmall = new List<mapPlace>();
-        List<mapPlace> mapListPlayer = new List<mapPlace>();
-
-        for (int x = 0; x < width; x++)
-        {
-            for (int y = 0; y < height; y++)
-            {
-                if (map[x, y] == 0)
-                {
-                    var mPlace = new mapPlace(x, y);
-                    mapList.Add(mPlace);
-                    mapListSmall.Add(mPlace);
-                    mapListPlayer.Add(mPlace);
-
-                }
-            }
-        }
-
-        int mapSize = mapList.Count;
-        for (int i = 0; i < mapSize; i++)
-        {
-            int index = 0;
-            index = random.Next(0, mapList.Count - 1);
-            mapPlace mPlace = mapList[index];
-
-            for (int z = mPlace.posX - 10; z <= mPlace.posX + 10; z++)
-            {
-                for (int h = mPlace.posY - 10; h <= mPlace.posY + 10; h++)
-                {
-                    if (z == mPlace.posX || h == mPlace.posY)
-                    {
-                        if (z > 0 && z < map.GetLength(0) && h > 0 && h < map.GetLength(1) && map[z, h] != 1 && map[z, h] != 2)
-                        {
-                            big++;
-                            //Debug.DrawLine(new Vector3(mPlace.posX - width / 2, 0, mPlace.posY - height / 2), new Vector3(mPlace.posX - width / 2, 10, mPlace.posY - height / 2), Color.blue, 100);
-                            if (big == 41)
-                            {
-                                //     Debug.DrawLine(new Vector3(mPlace.posX - width / 2, 0, mPlace.posY - height / 2), new Vector3(mPlace.posX - width / 2, 10, mPlace.posY - height / 2), Color.blue, 100);
-                                map[mPlace.posX, mPlace.posY] = 2;
-
-                                int r = random.Next(0, 100);
-                                if (r < randomObstaclesFillPercent)
-                                {
-                                    int indexer = random.Next(0, centerAddOnsBig.Count);
-                                    var obstacle = Instantiate(centerAddOnsBig[indexer], new Vector3(mPlace.posX - width / 2, -2.85f, mPlace.posY - height / 2), centerAddOnsBig[indexer].transform.rotation);
-                                    obstacle.transform.parent = centerObstacles.transform;
-
-                                }
-                                big = 0;
-                            }
-                        }
-                    }
-                }
-            }
-            mapList.Remove(mapList[index]);
-            big = 0;
-        }
-
-
-        int mapSizeSmall = mapListSmall.Count;
-        for (int i = 0; i < mapSizeSmall; i++)
-        {
-            int index = 0;
-            index = random.Next(0, mapListSmall.Count - 1);
-            mapPlace mPlace = mapListSmall[index];
-            for (int z = mPlace.posX - 5; z <= mPlace.posX + 5; z++)
-            {
-                for (int h = mPlace.posY - 5; h <= mPlace.posY + 5; h++)
-                {
-                    if (z == mPlace.posX || h == mPlace.posY)
-                    {
-                        if (z > 0 && z < map.GetLength(0) && h > 0 && h < map.GetLength(1) && map[z, h] != 1 && map[z, h] != 2)
-                        {
-                            small++;
-                            //  Debug.DrawLine(new Vector3(mPlace.posX - width / 2, 0, mPlace.posY - height / 2), new Vector3(mPlace.posX - width / 2, 10, mPlace.posY - height / 2), Color.blue, 100);
-
-                            if (small == 21)
-                            {
-                                //   Debug.DrawLine(new Vector3(mPlace.posX - width / 2, 0, mPlace.posY - height / 2), new Vector3(mPlace.posX - width / 2, 10, mPlace.posY - height / 2), Color.blue, 100);
-                                map[mPlace.posX, mPlace.posY] = 2;
-
-                                int r = random.Next(0, 100);
-                                if (r < randomObstaclesFillPercent)
-                                {
-                                    int indexer = random.Next(0, centerAddOnsSmall.Count);
-                                    var obstacle = Instantiate(centerAddOnsSmall[indexer], new Vector3(mPlace.posX - width / 2, -2.85f, mPlace.posY - height / 2), centerAddOnsSmall[indexer].transform.rotation);
-                                    obstacle.transform.parent = centerObstacles.transform;
-                                }
-                                small = 0;
-                            }
-                        }
-                    }
-                }
-            }
-            mapListSmall.Remove(mapListSmall[index]);
-            small = 0;
-        }
-
-
-        int mapSizePlayer = mapListPlayer.Count;
-        for (int i = 0; i < mapSizePlayer; i++)
-        {
-            int platformindex = 0;
-            int index = 0;
-            index = random.Next(0, mapListPlayer.Count - 1);
-            mapPlace mPlace = mapListPlayer[index];
-
-            for (int z = mPlace.posX - 50; z <= mPlace.posX + 50; z++)
-            {
-                for (int h = mPlace.posY - 50; h <= mPlace.posY + 50; h++)
-                {
-                    if (z == mPlace.posX || h == mPlace.posY)
-                    {
-                        if (z > 0 && z < map.GetLength(0) && h > 0 && h < map.GetLength(1) && map[z, h] != 1 && map[z, h] != 2)
-                        {
-                            platformindex++;
-                            // Debug.DrawLine(new Vector3(mPlace.posX - width / 2, 0, mPlace.posY - height / 2), new Vector3(mPlace.posX - width / 2, 10, mPlace.posY - height / 2), Color.blue, 100);
-                            if (platformindex > 145)
-                            {
-                                if (platformCreated == false)
-                                {
-                                    map[mPlace.posX, mPlace.posY] = 2;
-                                    var obstacle = Instantiate(platform, new Vector3(mPlace.posX - width / 2, -2.85f, mPlace.posY - height / 2), platform.transform.rotation);
-                                    obstacle.GetComponent<Platform>().ReloadMapUI = reloadMapUI;
-                                    obstacle.transform.parent = centerObstacles.transform;
-                                    platformCreated = true;
-                                    platformPlace = mPlace;
-                                    var playerPrefab = Instantiate(player, new Vector3(mPlace.posX - width / 2, -2.85f, mPlace.posY - height / 2), player.transform.rotation);
-                                    playerPrefab.GetComponent<CharacterStats>().charInv.hotBarDisplayHolders = hotBarDisplayHolders;
-                                    playerPrefab.GetComponent<CharacterStats>().charInv.InventoryDisplayHolder = inventoryDisplayHolder;
-                                    playerPrefab.GetComponent<CharacterStats>().charInv.ClearInventory();
-                                    if (characterStatsGame != null)
-                                    {
-                                        playerPrefab.GetComponent<CharacterStats>().characterDefinition = characterStatsGame;
-                                    }
-
-                                    playerPrefab.GetComponent<CharacterBehaviour>().fireballHolder = centerObstacles;
-                                    var pointer = GameObject.FindGameObjectWithTag("Pointer");
-                                    if (pointer != null)
-                                        pointer.GetComponent<Pointer>().targetPosition = obstacle.transform.position;
-                                    playerPrefab.GetComponent<CharacterBehaviour>().EscapeMenu = escapeMenu;
-                                }
-
-                            }
-                        }
-                    }
-                }
-            }
-            mapListPlayer.Remove(mapListPlayer[index]);
-            platformindex = 0;
-        }
-
-        SetWaypoints();
-
-    }
-
-    void SetWaypoints()
-    {
-        var random = new System.Random();
-        int waypoint = 0;
-        List<mapPlace> mapList = new List<mapPlace>();
-
-        List<mapPlace> waypoints = new List<mapPlace>();
-        for (int x = 0; x < width; x++)
-        {
-            for (int y = 0; y < height; y++)
-            {
-                if (map[x, y] == 0)
-                {
-                    var mPlace = new mapPlace(x, y);
-                    mapList.Add(mPlace);
-                }
-            }
-        }
-
-        int mapSize = mapList.Count;
-        for (int i = 0; i < mapSize; i++)
-        {
-            int index = 0;
-            index = random.Next(0, mapList.Count - 1);
-            mapPlace mPlace = mapList[index];
-            if (mPlace.posX != platformPlace.posX && mPlace.posY != platformPlace.posY)
-            {
-                for (int z = mPlace.posX - 16; z <= mPlace.posX + 16; z++)
-                {
-                    for (int h = mPlace.posY - 16; h <= mPlace.posY + 16; h++)
-                    {
-                        if (z == mPlace.posX || h == mPlace.posY)
-                        {
-
-                            if (z > 0 && z < map.GetLength(0) && h > 0 && h < map.GetLength(1) && map[z, h] != 1 && map[z, h] != 2)
-                            {
-                                waypoint++;
-                                // Debug.LogError(waypoint);
-                                // Debug.DrawLine(new Vector3(mPlace.posX - width / 2, 0, mPlace.posY - height / 2), new Vector3(mPlace.posX - width / 2, 10, mPlace.posY - height / 2), Color.blue, 100);
-                                if (waypoint == 61)
-                                {
-                                    //Debug.DrawLine(new Vector3(mPlace.posX - width / 2, 0, mPlace.posY - height / 2), new Vector3(mPlace.posX - width / 2, 10, mPlace.posY - height / 2), Color.blue, 100);
-                                    map[mPlace.posX, mPlace.posY] = 2;
-                                    mapPlace waypointPoint = new mapPlace();
-                                    waypointPoint.posX = mPlace.posX - width / 2;
-                                    waypointPoint.posY = mPlace.posY - height / 2;
-
-                                    waypoints.Add(waypointPoint);
-
-
-
-                                    waypoint = 0;
-                                }
-                            }
-                        }
-                    }
-                }
-                mapList.Remove(mapList[index]);
-                waypoint = 0;
-            }
-        }
-        InstantiateEnemies(waypoints);
-
-    }
-
-    private void InstantiateEnemies(List<mapPlace> waypoints)
-    {
-        if (GameObject.FindGameObjectWithTag("Player") != null)
-        {
-            var waypointsEnemies = waypoints;
-            int waypointsEnemiesLenght = 0;
-            waypointsEnemiesLenght = waypoints.Count;
-            //       Debug.LogError(waypointsEnemiesLenght);
-            var transformsList = new List<Vector3>();
-            foreach (mapPlace way in waypoints)
-            {
-                var trans = new Vector3(way.posX, -2f, way.posY);
-                transformsList.Add(trans);
-            }
-            var waypointsPatrol = transformsList.ToArray();
-
-
-            foreach (mapPlace place in waypointsEnemies)
-            {
-                var skeletorI = Instantiate(skeletor, new Vector3(place.posX, 0, place.posY), skeletor.transform.rotation);
-                var skeletorStats = EnemyStats_SO.CreateInstance<EnemyStats_SO>();
-                skeletorStats.maxHealth = 100;
-                skeletorStats.currentHealth = 100;
-                skeletorStats.maxMana = 50;
-                skeletorStats.currentMana = 50;
-                skeletorStats.currentDamage = 2;
-                skeletorStats.normalSpeed = 3;
-                skeletorStats.experienceAdded = 100;
-
-                skeletorI.GetComponent<EnemyBehaviour>().enemyDefinition = skeletorStats;
-                skeletorI.GetComponent<EnemyStats>().enemyDefinition = skeletorStats;
-                skeletorI.transform.parent = enemyList.transform;
-                skeletorI.GetComponent<EnemyAI>().patrolTargets = waypointsPatrol;
-
-            }
-
-            healthManaScript.MonsterCounter.text = waypointsEnemiesLenght.ToString();
-            EventManager.TriggerEvent(EventManager.MapCreated);
-        }
-        else
-        {
-            GenerateNewMap();
-        }
-    }
-
-
 
     void SmoothMap()
     {
@@ -977,5 +636,7 @@ public class MapGenerator : MonoBehaviour
         {
             return otherRoom.roomSize.CompareTo(roomSize);
         }
+
+
     }
 }

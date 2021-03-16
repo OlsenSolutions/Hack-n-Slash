@@ -12,7 +12,6 @@ public class CharacterInventory : MonoBehaviour
     GameObject foundPlayer;
 
     public Image[] hotBarDisplayHolders = new Image[4];
-    public GameObject InventoryDisplayHolder;
 
     int inventoryItemCap = 20;
     int idCount = 1;

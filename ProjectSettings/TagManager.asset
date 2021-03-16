@@ -18,6 +18,10 @@ TagManager:
   - Magic
   - GameManager
   - Pointer
+  - Floor
+  - Obstacle
+  - Waypoint
+  - ReloadMapUI
   layers:
   - Default
   - TransparentFX
@@ -34,7 +38,7 @@ TagManager:
   - Weapon
   - IgnoreNavMesh
   - EnemyCollider
-  - 
+  - Floor
   - 
   - 
   - 

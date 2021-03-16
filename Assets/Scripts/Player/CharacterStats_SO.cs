@@ -6,6 +6,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewStats", menuName = "Character/Stats", order = 1)]
 public class CharacterStats_SO : ScriptableObject
 {
+
+
+
     [System.Serializable]
     public class CharLevelUps
     {
@@ -17,7 +20,6 @@ public class CharacterStats_SO : ScriptableObject
         public int currentMagicDamage;
     }
     public bool setManually = false;
-    public bool saveDataOnClose = false;
 
     public ItemPickUp misc1 { get; private set; }
     public ItemPickUp misc2 { get; private set; }
@@ -111,12 +113,12 @@ public class CharacterStats_SO : ScriptableObject
 
 
     }
-
-    public void saveCharacterData()
-    {
-        saveDataOnClose = true;
-        //EditorUtility.SetDirty(this);
-    }
-
+    /*
+        public void saveCharacterData()
+        {
+            saveDataOnClose = true;
+            EditorUtility.SetDirty(this);
+        }
+    */
 
 }

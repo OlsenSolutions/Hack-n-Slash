@@ -25,7 +25,6 @@ public class EnemyBehaviour : MonoBehaviour
 
     public AudioSource Death;
 
-    private bool x;
     void Awake()
     {
 
@@ -35,7 +34,6 @@ public class EnemyBehaviour : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         anim = GetComponent<Animator>();
         enemyStats = GetComponent<EnemyStats>();
-        x = false;
         setRigidbodyState(true);
         setCollidersState(false);
     }
@@ -44,20 +42,20 @@ public class EnemyBehaviour : MonoBehaviour
     {
         if (player != null)
         {
-            if (x == false && charStats == null)
+            if (charStats == null)
             {
                 charStats = player.GetComponent<CharacterStats>();
-                x = true;
             }
 
             if (charStats.characterDefinition.currentHealth <= 0)
+            {
                 anim.SetBool("PlayerIsNear", false);
 
+            }
             if (enemyDefinition.currentHealth <= 0)
             {
                 player.GetComponent<CharacterStats>().GiveExperience(enemyDefinition.experienceAdded);
                 player.GetComponent<CharacterBehaviour>().StopCharacter();
-
                 Dead();
             }
         }

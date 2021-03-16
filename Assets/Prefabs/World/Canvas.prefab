@@ -3453,7 +3453,7 @@ GameObject:
   - component: {fileID: 9222569784360104343}
   m_Layer: 5
   m_Name: ReloadMap
-  m_TagString: Untagged
+  m_TagString: ReloadMapUI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

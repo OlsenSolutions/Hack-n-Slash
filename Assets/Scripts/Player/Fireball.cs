@@ -22,6 +22,7 @@ public class Fireball : MonoBehaviour
                 col.gameObject.GetComponent<EnemyStats>().TakeDamage(Damage);
                 mainParticle.Stop();
                 EnemyHit.Play();
+                if(col.gameObject.GetComponent<EnemyAI>()!=null)
                 col.gameObject.GetComponent<EnemyAI>().MagicHit = true;
                 GetComponent<SphereCollider>().enabled = false;
                 StartCoroutine(WaitToDestroy());

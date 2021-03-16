@@ -9,9 +9,9 @@ public class EventManager : MonoBehaviour
     public const string EnemyDead = "EnemyDead";
     public const string PlayerDead = "PlayerDead";
     public const string AllEnemiesDead = "AllEnemiesDead";
-    public const string MapCreated = "MapCreated";
     public const string MagicUsed = "MagicUsed";
     public const string NotRestart = "NotRestart";
+    public const string PlayerInstantiated = "PlayerInstantiated";
 
     private Dictionary<string, UnityEvent> eventDictionary;
     private static EventManager eventManager;
