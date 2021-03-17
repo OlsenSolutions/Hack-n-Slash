@@ -390,9 +390,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 459df0a37a6bbde47b8c21e31f23d572, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  randomCenterObstaclesFillCount: 150
-  randomWallObstaclesFillCount: 40
-  centerObstacleRadius: 1.56
+  randomCenterObstaclesFillCount: 80
+  centerObstacleRadius: 2.47
   wallObstacleRadius: 2.15
   waypointsCount: 10
   player: {fileID: 4536971497529200814, guid: c90e388a769b1ad47bb10e65dc80f2f3, type: 3}

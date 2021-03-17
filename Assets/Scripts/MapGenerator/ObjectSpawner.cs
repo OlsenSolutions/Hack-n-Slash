@@ -8,8 +8,7 @@ public class ObjectSpawner : MonoBehaviour
 
     [Range(0, 150)]
     public int randomCenterObstaclesFillCount;
-    [Range(0, 60)]
-    public int randomWallObstaclesFillCount;
+    
     [Range(0, 6)]
     public float centerObstacleRadius;
     [Range(0, 6)]
@@ -172,7 +171,7 @@ public class ObjectSpawner : MonoBehaviour
                 Collider[] colliders = Physics.OverlapSphere(position, objectDensity);
                 foreach (Collider col in colliders)
                 {
-                    if (col.tag == "Obstacle" || col.tag == "BoxCollective") //|| col.tag == "Wall")
+                    if (col.tag == "Obstacle" || col.tag == "BoxCollective" || col.tag == "Wall")
                     {
                         validPosition = false;
                         break;
