@@ -51,7 +51,7 @@ public class Platform : MonoBehaviour
                 var MapGeneratorScript = GameObject.FindGameObjectWithTag("MapGenerator").GetComponent<MapGenerator>();
                 if (MapGeneratorScript != null)
                 {
-                    MapGeneratorScript.GenerateNextMap(trigger.gameObject);
+                    EventManager.TriggerEvent(EventManager.ReloadMap);
                 }
             }
         }

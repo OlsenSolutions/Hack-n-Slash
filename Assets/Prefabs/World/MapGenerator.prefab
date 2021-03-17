@@ -203,36 +203,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1252025611}
   m_Mesh: {fileID: 0}
---- !u!1 &2096522670572319083
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 337320874208412237}
-  m_Layer: 0
-  m_Name: CenterHolder
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &337320874208412237
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2096522670572319083}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 3813520991253364466}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3813520990003096465
 GameObject:
   m_ObjectHideFlags: 0
@@ -376,9 +346,8 @@ MonoBehaviour:
   - {fileID: 7030994941266997987, guid: 725d9061657be724facf6fda9fe05b4f, type: 3}
   torchlight: {fileID: 8583780524957933453, guid: 5fbfbee0f9885764383291c4c5e18668,
     type: 3}
-  wallsHolder: {fileID: 4339314194694748322}
-  centerHolder: {fileID: 2096522670572319083}
-  enemyHolder: {fileID: 0}
+  centerHolder: {fileID: 0}
+  cave: {fileID: 3813520991253364469}
   escapeMenu: {fileID: 0}
   seed: 
   useRandomSeed: 1
@@ -421,27 +390,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 459df0a37a6bbde47b8c21e31f23d572, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  randomObstaclesFillPercent: 60
-  centerObstacleRadius: 4.07
+  randomCenterObstaclesFillCount: 150
+  randomWallObstaclesFillCount: 40
+  centerObstacleRadius: 1.56
+  wallObstacleRadius: 2.15
   waypointsCount: 10
   player: {fileID: 4536971497529200814, guid: c90e388a769b1ad47bb10e65dc80f2f3, type: 3}
   enemy: {fileID: 3588445633511127295, guid: a821ea32cdb9e0e4e9438e1957fc8248, type: 3}
   platform: {fileID: 8341242771292535758, guid: b7a8590a0136e3440ab2b48a2c8fb96e,
     type: 3}
-  centerObstaclesHolder: {fileID: 2096522670572319083}
+  centerObstaclesHolder: {fileID: 0}
+  wallObstaclesHolder: {fileID: 0}
   enemyHolder: {fileID: 0}
   ReloadMapUI: {fileID: 0}
   enemyWaypointsHolder: {fileID: 0}
-  spawnableObjects:
+  torchlight: {fileID: 8583780524957933453, guid: 5fbfbee0f9885764383291c4c5e18668,
+    type: 3}
+  spawnableCenterObjects:
   - {fileID: 357457598016801501, guid: f4d70d606a360c2439a786bd1aa796fe, type: 3}
   - {fileID: 1460935832571979484, guid: ff3b882235ccfcb44b4373373d31e8c1, type: 3}
-  - {fileID: 2744748427230900122, guid: d0c834f17be355c439845aa0dc281d88, type: 3}
+  - {fileID: 1000014038691284, guid: efebddd0b5766bd499be8b63f581de68, type: 3}
   - {fileID: 1378172779303584491, guid: fd2de4bd876f4ac4980370e624362931, type: 3}
   - {fileID: 2508803079818082220, guid: 616fdaa7dbff40e4f91c695be15f9f4f, type: 3}
+  - {fileID: 2900250246949302492, guid: 51b991f791f0ab24c822dd63a35abbf8, type: 3}
   - {fileID: 1169527351296278769, guid: fa88995ed34e77141b8c0cdc379410fb, type: 3}
-  - {fileID: 1000014038691284, guid: efebddd0b5766bd499be8b63f581de68, type: 3}
+  - {fileID: 2422862916687909700, guid: 15ddaa590faad0345bb862f16f938a85, type: 3}
+  - {fileID: 5970401421281161096, guid: ab1258b92a915f34cad498e468157ea2, type: 3}
+  - {fileID: 2172983332991183597, guid: a18b785adb73aa6418ddb2553efbe07d, type: 3}
+  - {fileID: 7744133988298027690, guid: 2842f39ac5e5f614dbddf8b6c0df87ad, type: 3}
+  - {fileID: 8178109065456489191, guid: 5062c1312f2beb14694d90a058d444e4, type: 3}
+  - {fileID: 2744748427230900122, guid: d0c834f17be355c439845aa0dc281d88, type: 3}
+  spawnableWallObjects:
+  - {fileID: 8178109065456489191, guid: 5062c1312f2beb14694d90a058d444e4, type: 3}
+  - {fileID: 2422862916687909700, guid: 15ddaa590faad0345bb862f16f938a85, type: 3}
+  - {fileID: 4840933984946710607, guid: 601cfa35bc1930448932c1bc4fd3f851, type: 3}
+  - {fileID: 5970401421281161096, guid: ab1258b92a915f34cad498e468157ea2, type: 3}
+  - {fileID: 2172983332991183597, guid: a18b785adb73aa6418ddb2553efbe07d, type: 3}
+  - {fileID: 7744133988298027690, guid: 2842f39ac5e5f614dbddf8b6c0df87ad, type: 3}
   floor: {fileID: 0}
   walls: {fileID: 0}
+  centersWall: []
+  normalsWall: []
   monsterCounter: {fileID: 0}
 --- !u!114 &2095759822
 MonoBehaviour:
@@ -490,9 +479,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 6012448122891182365}
-  - {fileID: 337320874208412237}
+  m_Children: []
   m_Father: {fileID: 3813520990258066421}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -543,33 +530,3 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!1 &4339314194694748322
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6012448122891182365}
-  m_Layer: 0
-  m_Name: WallsHolder
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6012448122891182365
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4339314194694748322}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 3813520991253364466}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

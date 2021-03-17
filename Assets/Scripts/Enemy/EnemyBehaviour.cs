@@ -44,7 +44,7 @@ public class EnemyBehaviour : MonoBehaviour
         {
             if (charStats == null)
             {
-                charStats = player.GetComponent<CharacterStats>();
+                FindPlayer();
             }
 
             if (charStats.characterDefinition.currentHealth <= 0)
@@ -63,7 +63,13 @@ public class EnemyBehaviour : MonoBehaviour
             player = GameObject.FindGameObjectWithTag("Player");
     }
 
-    private void Dead()
+    void FindPlayer()
+    {
+        charStats = player.GetComponent<CharacterStats>();
+
+    }
+
+    void Dead()
     {
         bar.gameObject.SetActive(false);
         EventManager.TriggerEvent(EventManager.EnemyDead);
@@ -101,11 +107,17 @@ public class EnemyBehaviour : MonoBehaviour
 
         if (col.gameObject.tag == "Weapon")
         {
-            enemyStats.TakeDamage(charStats.characterDefinition.currentDamage);
-            var random = new System.Random();
-            int x = random.Next(0,SwordSounds.Length-1);
-            SwordSounds[x].Play();
-
+            if (charStats != null)
+            {
+                enemyStats.TakeDamage(charStats.characterDefinition.currentDamage);
+                var random = new System.Random();
+                int x = random.Next(0, SwordSounds.Length - 1);
+                SwordSounds[x].Play();
+            }
+            else
+            {
+                FindPlayer();
+            }
         }
     }
 

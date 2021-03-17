@@ -12,6 +12,8 @@ public class EventManager : MonoBehaviour
     public const string MagicUsed = "MagicUsed";
     public const string NotRestart = "NotRestart";
     public const string PlayerInstantiated = "PlayerInstantiated";
+    public const string ReloadMap = "ReloadMap";
+
 
     private Dictionary<string, UnityEvent> eventDictionary;
     private static EventManager eventManager;
@@ -72,6 +74,11 @@ public class EventManager : MonoBehaviour
         if (instance.eventDictionary.TryGetValue(eventName, out thisEvent))
             thisEvent.Invoke();
 
+    }
+
+    public void CallFromButton (string eventName)
+    {
+        TriggerEvent(eventName);
     }
 
 

@@ -4,44 +4,89 @@ using UnityEngine;
 using UnityEngine.UI;
 public class ObjectSpawner : MonoBehaviour
 {
-    enum spawnType { Obstacle, Waypoint, Player, Platform, Enemy };
+    enum spawnType { Torchlight, WallObstacle, CenterObstacle, Waypoint, Player, Platform, Enemy };
 
+    [Range(0, 150)]
+    public int randomCenterObstaclesFillCount;
     [Range(0, 60)]
-    public int randomObstaclesFillPercent;
+    public int randomWallObstaclesFillCount;
     [Range(0, 6)]
     public float centerObstacleRadius;
+    [Range(0, 6)]
+    public float wallObstacleRadius;
     [Range(0, 10)]
     public int waypointsCount;
     public GameObject player;
     public GameObject enemy;
     public GameObject platform;
     public GameObject centerObstaclesHolder;
+    public GameObject wallObstaclesHolder;
     public GameObject enemyHolder;
     public GameObject ReloadMapUI;
     public GameObject enemyWaypointsHolder;
-    public GameObject[] spawnableObjects;
+    public GameObject torchlight;
+    public GameObject[] spawnableCenterObjects;
+    public GameObject[] spawnableWallObjects;
     public MeshFilter floor;
     public MeshFilter walls;
+    public List<Vector3> centersWall;
+    public List<Vector3> normalsWall;
     public Text monsterCounter;
     System.Random random = new System.Random();
     GameObject obstacle;
-
+    List<Vector3> centersTorchSorted = new List<Vector3>();
+    List<Vector3> normalsTorchSorted = new List<Vector3>();
+    List<Vector3> centersWallSorted = new List<Vector3>();
     List<Vector3> waypointList;
+    int wallPositionReferenceNumber;
+    float[] meshSize;
+
+    private bool x = true;
     void Start()
     {
     }
-    public void SpawnObjects()
+    public void SortAndSpawnObjects()
     {
-        SpawnObstacles();
-        SpawnWaypoints();
-        SpawnPlatform();
+        centersTorchSorted = new List<Vector3>();
+        normalsTorchSorted = new List<Vector3>();
+        centersWallSorted = new List<Vector3>();
+        meshSize = GetTriSizes(floor.sharedMesh.triangles, floor.sharedMesh.vertices);
+        SortWallPositions();
     }
 
-    void SpawnObstacles()
+    void SpawnObjects()
     {
-        for (int x = 0; x <= randomObstaclesFillPercent; x++)
+        SpawnTorchlights();
+        SpawnWallObstacles();
+        SpawnCenterObstacles();
+        SpawnWaypoints();
+        SpawnPlatform();
+
+    }
+
+    void SpawnTorchlights()
+    {
+        for (int x = 0; x < centersTorchSorted.Count; x++)
         {
-            Spawn(floor.sharedMesh, centerObstaclesHolder, spawnType.Obstacle);
+            Spawn(wallObstaclesHolder, spawnType.Torchlight, wallObstacleRadius, x);
+        }
+
+    }
+
+    void SpawnWallObstacles()
+    {
+        for (int x = 0; x < centersWallSorted.Count; x++)
+        {
+            Spawn(wallObstaclesHolder, spawnType.WallObstacle, wallObstacleRadius, x);
+        }
+
+    }
+
+    void SpawnCenterObstacles()
+    {
+        for (int x = 0; x <= randomCenterObstaclesFillCount; x++)
+        {
+            Spawn(centerObstaclesHolder, spawnType.CenterObstacle, centerObstacleRadius);
         }
 
     }
@@ -49,12 +94,12 @@ public class ObjectSpawner : MonoBehaviour
     {
         for (int x = 0; x <= waypointsCount; x++)
         {
-            Spawn(floor.sharedMesh, enemyWaypointsHolder, spawnType.Waypoint);
+            Spawn(enemyWaypointsHolder, spawnType.Waypoint, centerObstacleRadius);
         }
     }
     void SpawnPlatform()
     {
-        Spawn(floor.sharedMesh, centerObstaclesHolder, spawnType.Platform);
+        Spawn(centerObstaclesHolder, spawnType.Platform, centerObstacleRadius);
 
     }
 
@@ -65,16 +110,28 @@ public class ObjectSpawner : MonoBehaviour
         SetMonsterCounter(count);
         for (int x = 0; x < count; x++)
         {
-            Spawn(floor.sharedMesh, enemyHolder, spawnType.Enemy);
+            Spawn(enemyHolder, spawnType.Enemy, centerObstacleRadius);
         }
     }
-    void Spawn(Mesh mesh, GameObject parent, spawnType type)
+    void Spawn(GameObject parent, spawnType type, float objectDensity, int wallObstacleCount = 0)
     {
         switch (type)
         {
-            case spawnType.Obstacle:
+            case spawnType.Torchlight:
                 {
-                    obstacle = spawnableObjects[random.Next(0, spawnableObjects.Length)];
+                    obstacle = torchlight;
+                    obstacle.hideFlags = HideFlags.HideInHierarchy;
+
+                    break;
+                }
+            case spawnType.WallObstacle:
+                {
+                    obstacle = spawnableWallObjects[random.Next(0, spawnableWallObjects.Length - 1)];
+                    break;
+                }
+            case spawnType.CenterObstacle:
+                {
+                    obstacle = spawnableCenterObjects[random.Next(0, spawnableCenterObjects.Length)];
                     break;
                 }
             case spawnType.Waypoint:
@@ -101,28 +158,53 @@ public class ObjectSpawner : MonoBehaviour
         if (obstacle == null)
             Destroy(obstacle);
 
-        Vector3 position = GetRandomPointOnMesh(mesh);
+        Vector3 position = GetPosition(type, wallObstacleCount);
         bool validPosition = false;
 
-        while (!validPosition)
+
+        if (type == spawnType.CenterObstacle || type == spawnType.Waypoint || type == spawnType.Platform || type == spawnType.Enemy)
         {
-            position = GetRandomPointOnMesh(mesh);
-            validPosition = true;
-            Collider[] colliders = Physics.OverlapSphere(position, centerObstacleRadius);
-            foreach (Collider col in colliders)
+            while (!validPosition)
             {
-                if (col.tag == "Obstacle" || col.tag == "BoxCollective" || col.tag == "Wall")
+                position = GetPosition(type, wallObstacleCount);
+                validPosition = true;
+                int i = parent.transform.childCount;
+                Collider[] colliders = Physics.OverlapSphere(position, objectDensity);
+                foreach (Collider col in colliders)
                 {
-                    validPosition = false;
+                    if (col.tag == "Obstacle" || col.tag == "BoxCollective") //|| col.tag == "Wall")
+                    {
+                        validPosition = false;
+                        break;
+                    }
                 }
             }
         }
+        else
+            validPosition = true;
         if (validPosition)
         {
 
             switch (type)
             {
-                case spawnType.Obstacle:
+                case spawnType.Torchlight:
+                    {
+                        var obs = Instantiate(obstacle, position + obstacle.transform.position, Quaternion.identity);
+                        obs.transform.parent = parent.transform;
+                        var newHeigh = new Vector3(obs.transform.position.x, 2f, obs.transform.position.z);
+                        obs.transform.position = newHeigh;
+                        obs.transform.LookAt((centersTorchSorted[wallObstacleCount] + normalsTorchSorted[wallObstacleCount]));
+                        break;
+                    }
+                case spawnType.WallObstacle:
+                    {
+                        var obs = Instantiate(obstacle, position + obstacle.transform.position, Quaternion.Euler(0, 0, 0));
+                        obs.transform.parent = parent.transform;
+                        var newHeigh = new Vector3(obs.transform.position.x, 0f, obs.transform.position.z);
+                        obs.transform.position = newHeigh;
+                        break;
+                    }
+                case spawnType.CenterObstacle:
                     {
                         var obs = Instantiate(obstacle, position + obstacle.transform.position, Quaternion.identity);
                         obs.transform.parent = parent.transform;
@@ -159,13 +241,9 @@ public class ObjectSpawner : MonoBehaviour
             }
         }
     }
-
-
-
     Vector3 GetRandomPointOnMesh(Mesh mesh)
     {
-
-        float[] sizes = GetTriSizes(mesh.triangles, mesh.vertices);
+        float[] sizes = meshSize;
         float[] cumulativeSizes = new float[sizes.Length];
         float total = 0;
 
@@ -188,6 +266,8 @@ public class ObjectSpawner : MonoBehaviour
             }
         }
 
+        if (triIndex == -1) Debug.LogError("triIndex should never be -1");
+
         Vector3 a = mesh.vertices[mesh.triangles[triIndex * 3]];
         Vector3 b = mesh.vertices[mesh.triangles[triIndex * 3 + 1]];
         Vector3 c = mesh.vertices[mesh.triangles[triIndex * 3 + 2]];
@@ -200,7 +280,6 @@ public class ObjectSpawner : MonoBehaviour
             r = 1 - r;
             s = 1 - s;
         }
-
         Vector3 pointOnMesh = a + r * (b - a) + s * (c - a);
         return pointOnMesh;
 
@@ -240,6 +319,63 @@ public class ObjectSpawner : MonoBehaviour
             vectorsList.Add(waypoint.transform.position);
         }
         return vectorsList;
+    }
+
+    void SortWallPositions()
+    {
+        List<Vector3> centerNotUsed = new List<Vector3>();
+        int index = 0;
+        for (int x = 0; x < centersWall.Count; x++)
+        {
+            index++;
+            if (index == 30)
+            {
+                centersTorchSorted.Add(centersWall[x]);
+                normalsTorchSorted.Add(normalsWall[x]);
+                index = 0;
+            }
+            else
+            {
+                centerNotUsed.Add(centersWall[x]);
+            }
+        }
+
+        index = 0;
+        for (int x = 0; x < centerNotUsed.Count; x++)
+        {
+            index++;
+            if (index == 10)
+            {
+                centersWallSorted.Add(centerNotUsed[x]);
+                index = 0;
+            }
+        }
+        SpawnObjects();
+    }
+
+    Vector3 GetPosition(spawnType type, int wallCount)
+    {
+        var position = new Vector3();
+
+        switch (type)
+        {
+            case spawnType.Torchlight:
+                {
+                    position = centersTorchSorted[wallCount];
+                    break;
+                }
+            case spawnType.WallObstacle:
+                {
+                    position = centersWallSorted[wallCount];
+                    break;
+                }
+            default:
+                position = GetRandomPointOnMesh(floor.sharedMesh);
+                break;
+        }
+
+
+        return position;
     }
 
     void SetMonsterCounter(int count)

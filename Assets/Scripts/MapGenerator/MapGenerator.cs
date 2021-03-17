@@ -12,12 +12,16 @@ public class MapGenerator : MonoBehaviour
     public List<GameObject> wallAddOnsLow;
     public List<GameObject> wallAddOnsTop;
     public GameObject torchlight;
-    public GameObject wallsHolder;
     public GameObject centerHolder;
-    public GameObject enemyHolder;
+    public GameObject cave;
     public GameObject escapeMenu;
     public string seed;
     public bool useRandomSeed;
+    GameObject wallsHolder;
+
+    GameObject enemyHolder;
+    GameObject waypointHolder;
+    ObjectSpawner spawner;
 
     [Range(0, 100)]
     public int randomFillPercent;
@@ -26,13 +30,11 @@ public class MapGenerator : MonoBehaviour
     public int randomObstaclesFillPercent;
     int[,] map;
     List<Room> survRooms = new List<Room>();
-    mapPlace platformPlace;
-    CharacterStats_SO characterStatsGame;
 
     void Start()
     {
+        spawner = GetComponent<ObjectSpawner>();
         GenerateMap();
-        characterStatsGame = null;
     }
     public void GenerateMap()
     {
@@ -75,14 +77,14 @@ public class MapGenerator : MonoBehaviour
         }
     }
 
-    public void GenerateNextMap(GameObject playerInGame)
+    void GenerateNextMap(GameObject playerInGame)
     {
         var PlayerStatsOld = playerInGame.GetComponent<CharacterStats>().characterDefinition;
         if (PlayerStatsOld != null)
         {
-             GetComponent<PlayerSpawner>().characterStatsDuringGame = PlayerStatsOld;
+            GetComponent<PlayerSpawner>().characterStatsDuringGame = PlayerStatsOld;
         }
-        Destroy(playerInGame);
+        GameObject.Destroy(playerInGame);
         GenerateMap();
     }
 
@@ -92,47 +94,64 @@ public class MapGenerator : MonoBehaviour
         GenerateNextMap(playerInstance);
     }
 
-
-
     void FillMap(List<Vector3>[] wallsPosition)
     {
-        WallPlacer(wallsPosition[0], wallsPosition[1]);
-        if (GetComponent<ObjectSpawner>().floor != null && GetComponent<ObjectSpawner>().walls != null)
-            GetComponent<ObjectSpawner>().SpawnObjects();
+        if (spawner.floor != null && spawner.walls != null)
+        {
+            spawner.centersWall = wallsPosition[0];
+            spawner.normalsWall = wallsPosition[1];
+            spawner.SortAndSpawnObjects();
+        }
         GetComponent<MeshGenerator>().BakingNavMesh();
     }
 
     void ClearMap()
     {
-        if (wallsHolder.transform.childCount != 0)
-        {
-            int childs = wallsHolder.transform.childCount;
-            for (int i = childs - 1; i >= 0; i--)
-            {
-                GameObject.Destroy(wallsHolder.transform.GetChild(i).gameObject);
-            }
-        }
+        spawner.walls = null;
+        spawner.floor = null;
+        if (wallsHolder != null)
+            DestroyObj(wallsHolder);
+        if (centerHolder != null)
+            DestroyObj(centerHolder);
+        if (enemyHolder != null)
+            DestroyObj(enemyHolder);
+        if (waypointHolder != null)
+            DestroyObj(waypointHolder);
+        wallsHolder = CreateObj("wallsHolder");
+        centerHolder = CreateObj("centerHolder");
+        enemyHolder = CreateObj("enemyHolder");
+        waypointHolder = CreateObj("waypointHolder");
 
-        if (centerHolder.transform.childCount != 0)
-        {
-            int childs = centerHolder.transform.childCount;
-            for (int i = childs - 1; i >= 0; i--)
-            {
-                GameObject.Destroy(centerHolder.transform.GetChild(i).gameObject);
-            }
-        }
-
-         if (enemyHolder.transform.childCount != 0)
-        {
-            int childs = enemyHolder.transform.childCount;
-            for (int i = childs - 1; i >= 0; i--)
-            {
-                GameObject.Destroy(enemyHolder.transform.GetChild(i).gameObject);
-            }
-        }
-
+        spawner.centerObstaclesHolder = centerHolder;
+        spawner.wallObstaclesHolder = wallsHolder;
+        spawner.enemyHolder = enemyHolder;
+        spawner.enemyWaypointsHolder = waypointHolder;
     }
 
+    void DestroyObj(GameObject holder)
+    {
+        GameObject.Destroy(holder.gameObject);
+    }
+
+    GameObject CreateObj(string name)
+    {
+        var holder = new GameObject(name);
+        holder.transform.parent = cave.transform;
+        return holder;
+    }
+    /*
+    void Clear(GameObject holder)
+    {
+        while (holder.transform.childCount != 0)
+        {
+            int childs = holder.transform.childCount;
+            for (int i = childs - 1; i >= 0; i--)
+            {
+                GameObject.DestroyImmediate(holder.transform.GetChild(i).gameObject);
+            }
+        }
+    }
+*/
     void ProcessMap()
     {
         List<List<Coord>> wallRegions = GetRegions(1);
@@ -447,54 +466,6 @@ public class MapGenerator : MonoBehaviour
         }
     }
 
-    void WallPlacer(List<Vector3> center, List<Vector3> normal)
-    {
-        List<Vector3> centerNotUsed = new List<Vector3>();
-        List<Vector3> normalNotUsed = new List<Vector3>();
-        int index = 0;
-        for (int x = 0; x < center.Count; x++)
-        {
-            index++;
-            if (index == 30)
-            {
-                var position = new Vector3(center[x].x, 2f, center[x].z);
-                var torch = Instantiate(torchlight, position, torchlight.transform.rotation);
-                torch.transform.parent = wallsHolder.transform;
-                torch.transform.LookAt((center[x] + normal[x]));
-                index = 0;
-            }
-            else
-            {
-                centerNotUsed.Add(center[x]);
-                normalNotUsed.Add(normal[x]);
-            }
-        }
-        FillWallObstacles(centerNotUsed, normalNotUsed);
-
-    }
-
-    void FillWallObstacles(List<Vector3> center, List<Vector3> normal)
-    {
-        var random = new System.Random();
-
-        int index = 0;
-        for (int x = 0; x < center.Count; x++)
-        {
-            index++;
-            if (index == 10)
-            {
-                int indexer = random.Next(0, wallAddOnsLow.Count);
-                var obstacle = Instantiate(wallAddOnsLow[indexer], center[x] + (normal[x] / 5), wallAddOnsLow[indexer].transform.rotation);
-                obstacle.transform.parent = wallsHolder.transform;
-                obstacle.transform.LookAt((center[x] + normal[x]));
-                var position = new Vector3(obstacle.transform.position.x, 0f, obstacle.transform.position.z);
-                obstacle.transform.position = position;
-                index = 0;
-            }
-        }
-
-    }
-
     void SmoothMap()
     {
         for (int x = 0; x < width; x++)
@@ -534,6 +505,16 @@ public class MapGenerator : MonoBehaviour
         }
 
         return wallCount;
+    }
+
+    void OnEnable()
+    {
+        EventManager.StartListening(EventManager.ReloadMap, RestartMap);
+    }
+
+    void OnDisable()
+    {
+        EventManager.StopListening(EventManager.ReloadMap, RestartMap);
     }
 
     struct Coord
@@ -636,6 +617,7 @@ public class MapGenerator : MonoBehaviour
         {
             return otherRoom.roomSize.CompareTo(roomSize);
         }
+
 
 
     }
